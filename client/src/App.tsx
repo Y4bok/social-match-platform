@@ -5,6 +5,8 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import CGV from "./pages/CGV";
+import CGU from "./pages/CGU";
 import Dashboard from "./pages/Dashboard";
 import ProfileEdit from "./pages/ProfileEdit";
 import { useAuth } from "./_core/hooks/useAuth";
@@ -25,6 +27,8 @@ function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path={"/cgv"} component={CGV} />
+      <Route path={"/cgu"} component={CGU} />
       <Route path={"/contact"} component={Contact} />
       <Route path={"/dashboard"} component={() => <ProtectedRoute component={Dashboard} />} />
       <Route path={"/profile/edit"} component={() => <ProtectedRoute component={ProfileEdit} />} />

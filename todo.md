@@ -98,3 +98,21 @@
 - [x] Appliquer les couleurs à toutes les pages
 - [x] Mettre à jour les boutons et éléments interactifs
 - [x] Tester la cohérence visuelle sur tous les appareils
+
+## Phase 13: Images de Fond et Visuels
+- [x] Générer des images de fond avec la palette couleur (beige/jaune/marron)
+- [ ] Ajouter des images de fond à la landing page
+- [ ] Ajouter des images de fond aux autres pages
+- [ ] Intégrer les images dans les composants React
+
+## Phase 14: Pages Légales
+- [x] Créer la page CGV (Conditions Générales de Vente)
+- [x] Créer la page CGU (Conditions Générales d'Utilisation)
+- [ ] Ajouter les liens dans le footer
+- [x] Ajouter les routes dans App.tsx
+
+## Phase 15: Architecture du Site
+- [x] Documenter la proposition d'architecture complète
+- [ ] Créer un diagramme de navigation
+- [x] Définir la structure des pages
+- [x] Documenter les flux utilisateur
