@@ -42,56 +42,56 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-background to-accent/10 py-12">
       <div className="container max-w-2xl mx-auto px-4">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
+          <h1 className="text-4xl font-bold text-foreground mb-4">
             Nous contacter
           </h1>
-          <p className="text-xl text-slate-600 dark:text-slate-300">
+          <p className="text-xl text-foreground/70">
             Avez-vous des questions? Nous sommes là pour vous aider.
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 mb-12">
-          <Card className="border-slate-200 dark:border-slate-800 text-center">
+          <Card className="border-border text-center">
             <CardHeader>
-              <Mail className="w-8 h-8 mx-auto text-red-500 mb-2" />
+              <Mail className="w-8 h-8 mx-auto text-accent mb-2" />
               <CardTitle className="text-lg">Email</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-slate-600 dark:text-slate-400">
+              <p className="text-foreground/70">
                 support@socialmatch.com
               </p>
             </CardContent>
           </Card>
 
-          <Card className="border-slate-200 dark:border-slate-800 text-center">
+          <Card className="border-border text-center">
             <CardHeader>
-              <MessageSquare className="w-8 h-8 mx-auto text-blue-500 mb-2" />
+              <MessageSquare className="w-8 h-8 mx-auto text-secondary mb-2" />
               <CardTitle className="text-lg">Chat</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-slate-600 dark:text-slate-400">
+              <p className="text-foreground/70">
                 Disponible 24/7
               </p>
             </CardContent>
           </Card>
 
-          <Card className="border-slate-200 dark:border-slate-800 text-center">
+          <Card className="border-border text-center">
             <CardHeader>
-              <MessageSquare className="w-8 h-8 mx-auto text-green-500 mb-2" />
+              <MessageSquare className="w-8 h-8 mx-auto text-accent/70 mb-2" />
               <CardTitle className="text-lg">Réponse rapide</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-slate-600 dark:text-slate-400">
+              <p className="text-foreground/70">
                 Moins de 24h
               </p>
             </CardContent>
           </Card>
         </div>
 
-        <Card className="border-slate-200 dark:border-slate-800">
+        <Card className="border-border">
           <CardHeader>
             <CardTitle>Formulaire de contact</CardTitle>
             <CardDescription>
@@ -109,7 +109,7 @@ export default function Contact() {
                   {...register("name")}
                 />
                 {errors.name && (
-                  <p className="text-sm text-red-500">{errors.name.message}</p>
+                  <p className="text-sm text-destructive">{errors.name.message}</p>
                 )}
               </div>
 
@@ -123,7 +123,7 @@ export default function Contact() {
                   {...register("email")}
                 />
                 {errors.email && (
-                  <p className="text-sm text-red-500">{errors.email.message}</p>
+                  <p className="text-sm text-destructive">{errors.email.message}</p>
                 )}
               </div>
 
@@ -136,7 +136,7 @@ export default function Contact() {
                   {...register("subject")}
                 />
                 {errors.subject && (
-                  <p className="text-sm text-red-500">{errors.subject.message}</p>
+                  <p className="text-sm text-destructive">{errors.subject.message}</p>
                 )}
               </div>
 
@@ -150,7 +150,7 @@ export default function Contact() {
                   className="min-h-32"
                 />
                 {errors.message && (
-                  <p className="text-sm text-red-500">{errors.message.message}</p>
+                  <p className="text-sm text-destructive">{errors.message.message}</p>
                 )}
               </div>
 

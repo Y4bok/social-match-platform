@@ -54,11 +54,11 @@ export default function Messages() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-background to-accent/10 py-12">
       <div className="container max-w-4xl mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-6 h-96">
           {/* Conversations List */}
-          <Card className="border-slate-200 dark:border-slate-800 md:col-span-1">
+          <Card className="border-border md:col-span-1">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <MessageCircle className="w-5 h-5" />
@@ -77,8 +77,8 @@ export default function Messages() {
                     onClick={() => setSelectedConversation(conv.id)}
                     className={`w-full text-left p-3 rounded-lg transition-colors ${
                       selectedConversation === conv.id
-                        ? "bg-red-100 dark:bg-red-900/30"
-                        : "hover:bg-slate-100 dark:hover:bg-slate-800"
+                        ? "bg-accent/10"
+                        : "hover:bg-muted"
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -89,7 +89,7 @@ export default function Messages() {
                       />
                       <div className="flex-1 min-w-0">
                         <p className="font-semibold text-sm">{conv.name}</p>
-                        <p className="text-xs text-slate-600 dark:text-slate-400 truncate">
+                        <p className="text-xs text-foreground/60 truncate">
                           {conv.lastMessage}
                         </p>
                       </div>
@@ -101,27 +101,27 @@ export default function Messages() {
           </Card>
 
           {/* Chat Area */}
-          <Card className="border-slate-200 dark:border-slate-800 md:col-span-2 flex flex-col">
+          <Card className="border-border md:col-span-2 flex flex-col">
             {selectedConversation ? (
               <>
-                <CardHeader className="border-b border-slate-200 dark:border-slate-800">
+                <CardHeader className="border-b border-border">
                   <CardTitle>
                     {mockConversations.find((c) => c.id === selectedConversation)?.name}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="flex-1 overflow-y-auto p-4 space-y-4">
                   <div className="flex justify-end">
-                    <div className="bg-red-500 text-white rounded-lg p-3 max-w-xs">
+                    <div className="bg-accent text-primary-foreground rounded-lg p-3 max-w-xs">
                       <p className="text-sm">Salut!</p>
                     </div>
                   </div>
                   <div className="flex justify-start">
-                    <div className="bg-slate-200 dark:bg-slate-700 rounded-lg p-3 max-w-xs">
+                    <div className="bg-muted rounded-lg p-3 max-w-xs">
                       <p className="text-sm">Salut! Comment ça va?</p>
                     </div>
                   </div>
                 </CardContent>
-                <div className="border-t border-slate-200 dark:border-slate-800 p-4">
+                <div className="border-t border-border p-4">
                   <div className="flex gap-2">
                     <Input
                       placeholder="Écrivez un message..."
@@ -144,8 +144,8 @@ export default function Messages() {
                 </div>
               </>
             ) : (
-              <div className="flex items-center justify-center h-full">
-                <p className="text-slate-600 dark:text-slate-400">
+            <div className="flex items-center justify-center h-full">
+              <p className="text-foreground/60">
                   Sélectionnez une conversation
                 </p>
               </div>

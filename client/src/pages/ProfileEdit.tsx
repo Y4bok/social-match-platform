@@ -57,9 +57,9 @@ export default function ProfileEdit() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-background to-accent/10 py-12">
       <div className="container max-w-2xl mx-auto px-4">
-        <Card className="border-slate-200 dark:border-slate-800">
+        <Card className="border-border">
           <CardHeader>
             <CardTitle>Modifier mon profil</CardTitle>
             <CardDescription>
@@ -78,7 +78,7 @@ export default function ProfileEdit() {
                   className="min-h-24"
                 />
                 {errors.bio && (
-                  <p className="text-sm text-red-500">{errors.bio.message}</p>
+                  <p className="text-sm text-destructive">{errors.bio.message}</p>
                 )}
               </div>
 
@@ -92,7 +92,7 @@ export default function ProfileEdit() {
                   {...register("profilePhotoUrl")}
                 />
                 {errors.profilePhotoUrl && (
-                  <p className="text-sm text-red-500">{errors.profilePhotoUrl.message}</p>
+                  <p className="text-sm text-destructive">{errors.profilePhotoUrl.message}</p>
                 )}
               </div>
 
@@ -107,7 +107,7 @@ export default function ProfileEdit() {
                   {...register("age", { valueAsNumber: true })}
                 />
                 {errors.age && (
-                  <p className="text-sm text-red-500">{errors.age.message}</p>
+                  <p className="text-sm text-destructive">{errors.age.message}</p>
                 )}
               </div>
 
@@ -117,7 +117,7 @@ export default function ProfileEdit() {
                 <select
                   id="gender"
                   {...register("gender")}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-md dark:bg-slate-800 dark:border-slate-700"
+                  className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground"
                 >
                   <option value="">Sélectionner...</option>
                   <option value="male">Homme</option>
@@ -135,7 +135,7 @@ export default function ProfileEdit() {
                   {...register("location")}
                 />
                 {errors.location && (
-                  <p className="text-sm text-red-500">{errors.location.message}</p>
+                  <p className="text-sm text-destructive">{errors.location.message}</p>
                 )}
               </div>
 

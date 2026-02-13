@@ -75,29 +75,29 @@ export default function Discover() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-background to-accent/10 py-12">
       <div className="container max-w-md mx-auto px-4">
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
+          <h1 className="text-3xl font-bold text-foreground mb-2">
             Découvrir
           </h1>
-          <p className="text-slate-600 dark:text-slate-400">
+          <p className="text-foreground/70">
             Trouvez votre match parfait
           </p>
         </div>
 
         {/* Profile Card */}
-        <Card className="overflow-hidden border-slate-200 dark:border-slate-800 shadow-xl">
+        <Card className="overflow-hidden border-border shadow-xl">
           <CardContent className="p-0">
             {/* Profile Image */}
-            <div className="relative h-96 overflow-hidden bg-slate-200 dark:bg-slate-800">
+            <div className="relative h-96 overflow-hidden bg-muted">
               <img
                 src={currentProfile.profilePhotoUrl}
                 alt={currentProfile.name}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-primary-foreground">
                 <h2 className="text-3xl font-bold">
                   {currentProfile.name}, {currentProfile.age}
                 </h2>
@@ -107,7 +107,7 @@ export default function Discover() {
 
             {/* Profile Info */}
             <div className="p-6">
-              <p className="text-slate-600 dark:text-slate-300 mb-6">
+              <p className="text-foreground/70 mb-6">
                 {currentProfile.bio}
               </p>
 
@@ -126,7 +126,7 @@ export default function Discover() {
                 <Button
                   size="lg"
                   onClick={handleLike}
-                  className="flex-1 gap-2 bg-red-500 hover:bg-red-600"
+                  className="flex-1 gap-2 bg-accent hover:bg-accent/90 text-primary-foreground"
                   disabled={likeUser.isPending}
                 >
                   <Heart className="w-5 h-5" />
@@ -138,7 +138,7 @@ export default function Discover() {
         </Card>
 
         {/* Progress */}
-        <div className="mt-8 text-center text-sm text-slate-600 dark:text-slate-400">
+        <div className="mt-8 text-center text-sm text-foreground/60">
           Profil {currentIndex + 1} sur {mockProfiles.length}
         </div>
       </div>

@@ -20,10 +20,10 @@ export default function Dashboard() {
       <div className="space-y-8">
         {/* Welcome Section */}
         <div>
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
+          <h1 className="text-3xl font-bold text-foreground mb-2">
             Bienvenue, {user.name || user.email}!
           </h1>
-          <p className="text-slate-600 dark:text-slate-400">
+          <p className="text-foreground/70">
             Gérez votre profil et découvrez de nouvelles connexions
           </p>
         </div>
@@ -38,7 +38,7 @@ export default function Dashboard() {
               <div className="text-2xl font-bold">
                 {profile?.isVerified ? "✓" : "⚠"}
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+              <p className="text-xs text-foreground/60 mt-1">
                 {profile?.isVerified ? "Vérifié" : "À vérifier"}
               </p>
             </CardContent>
@@ -52,7 +52,7 @@ export default function Dashboard() {
               <div className="text-2xl font-bold">
                 {twoFAStatus?.isEnabled ? "✓" : "✗"}
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+              <p className="text-xs text-foreground/60 mt-1">
                 {twoFAStatus?.isEnabled ? "Activé" : "Désactivé"}
               </p>
             </CardContent>
@@ -64,7 +64,7 @@ export default function Dashboard() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">0</div>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+              <p className="text-xs text-foreground/60 mt-1">
                 Actifs
               </p>
             </CardContent>
@@ -76,7 +76,7 @@ export default function Dashboard() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">0</div>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+              <p className="text-xs text-foreground/60 mt-1">
                 Non lus
               </p>
             </CardContent>
@@ -86,11 +86,11 @@ export default function Dashboard() {
         {/* Main Actions */}
         <div className="grid md:grid-cols-2 gap-6">
           {/* Profile Card */}
-          <Card className="border-slate-200 dark:border-slate-800">
+          <Card className="border-border">
             <CardHeader>
               <div className="flex items-center gap-2 mb-2">
-                <Users className="w-5 h-5 text-blue-500" />
-                <CardTitle>Mon Profil</CardTitle>
+                <Users className="w-5 h-5 text-accent" />
+                <CardTitle className="text-foreground">Mon Profil</CardTitle>
               </div>
               <CardDescription>
                 Complétez et mettez à jour votre profil
@@ -109,18 +109,18 @@ export default function Dashboard() {
           </Card>
 
           {/* Discover Card */}
-          <Card className="border-slate-200 dark:border-slate-800">
+          <Card className="border-border">
             <CardHeader>
               <div className="flex items-center gap-2 mb-2">
-                <Heart className="w-5 h-5 text-red-500" />
-                <CardTitle>Découvrir</CardTitle>
+                <Heart className="w-5 h-5 text-accent" />
+                <CardTitle className="text-foreground">Découvrir</CardTitle>
               </div>
               <CardDescription>
                 Trouvez des personnes compatibles
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+              <p className="text-sm text-foreground/60 mb-3">
                 Explorez les profils et trouvez vos matchs
               </p>
               <Link href="/discover">
@@ -130,18 +130,18 @@ export default function Dashboard() {
           </Card>
 
           {/* Messaging Card */}
-          <Card className="border-slate-200 dark:border-slate-800">
+          <Card className="border-border">
             <CardHeader>
               <div className="flex items-center gap-2 mb-2">
-                <MessageCircle className="w-5 h-5 text-blue-500" />
-                <CardTitle>Messages</CardTitle>
+                <MessageCircle className="w-5 h-5 text-secondary" />
+                <CardTitle className="text-foreground">Messages</CardTitle>
               </div>
               <CardDescription>
                 Communiquez avec vos matchs
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+              <p className="text-sm text-foreground/60 mb-3">
                 Vous n'avez pas encore de conversations
               </p>
               <Link href="/messages">
@@ -151,18 +151,18 @@ export default function Dashboard() {
           </Card>
 
           {/* Security Card */}
-          <Card className="border-slate-200 dark:border-slate-800">
+          <Card className="border-border">
             <CardHeader>
               <div className="flex items-center gap-2 mb-2">
-                <Settings className="w-5 h-5 text-purple-500" />
-                <CardTitle>Sécurité</CardTitle>
+                <Settings className="w-5 h-5 text-accent/70" />
+                <CardTitle className="text-foreground">Sécurité</CardTitle>
               </div>
               <CardDescription>
                 Gérez vos paramètres de sécurité
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+              <p className="text-sm text-foreground/60 mb-3">
                 2FA: {twoFAStatus?.isEnabled ? "Activé" : "Désactivé"}
               </p>
               <Link href="/settings/security">

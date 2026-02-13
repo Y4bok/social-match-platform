@@ -88,3 +88,13 @@
 - [ ] Checkpoint final
 - [ ] Documentation
 - [ ] Présentation au client
+
+
+## Phase 12: Palette de Couleurs Claudine
+- [x] Mettre à jour la palette CSS avec les couleurs Claudine
+  - [x] Beige/Crème (#F5E6D3) comme couleur de fond
+  - [x] Marron foncé (#5C2E3A) comme accent principal
+  - [x] Noir (#1A1A1A) pour les contrastes
+- [x] Appliquer les couleurs à toutes les pages
+- [x] Mettre à jour les boutons et éléments interactifs
+- [x] Tester la cohérence visuelle sur tous les appareils
