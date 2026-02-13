@@ -1,7 +1,6 @@
 import { useAuth } from "@/_core/hooks/useAuth";
-import DashboardLayout from "@/components/DashboardLayout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heart, MessageCircle, Settings, Users } from "lucide-react";
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
@@ -12,30 +11,30 @@ export default function Dashboard() {
   const { data: twoFAStatus } = trpc.auth.get2FAStatus.useQuery();
 
   if (!user) {
-    return <div>Chargement...</div>;
+    return <div className="p-8">Chargement...</div>;
   }
 
   return (
-    <DashboardLayout>
-      <div className="space-y-8">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/5 py-12">
+      <div className="container max-w-6xl mx-auto px-4 space-y-8">
         {/* Welcome Section */}
         <div>
-          <h1 className="text-3xl font-bold text-foreground mb-2">
+          <h1 className="text-4xl font-bold text-primary mb-2" style={{ fontFamily: "'Abril Fatface', serif" }}>
             Bienvenue, {user.name || user.email}!
           </h1>
-          <p className="text-foreground/70">
+          <p className="text-lg text-foreground/70">
             Gérez votre profil et découvrez de nouvelles connexions
           </p>
         </div>
 
-        {/* Quick Stats */}
-        <div className="grid md:grid-cols-4 gap-4">
-          <Card>
+        {/* Stats Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <Card className="border-border">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium">Profil</CardTitle>
+              <CardTitle className="text-sm font-medium text-foreground/70">Profil</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
+              <div className="text-2xl font-bold text-primary">
                 {profile?.isVerified ? "✓" : "⚠"}
               </div>
               <p className="text-xs text-foreground/60 mt-1">
@@ -44,12 +43,12 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-border">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium">2FA</CardTitle>
+              <CardTitle className="text-sm font-medium text-foreground/70">2FA</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
+              <div className="text-2xl font-bold text-primary">
                 {twoFAStatus?.isEnabled ? "✓" : "✗"}
               </div>
               <p className="text-xs text-foreground/60 mt-1">
@@ -58,27 +57,23 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-border">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium">Matchs</CardTitle>
+              <CardTitle className="text-sm font-medium text-foreground/70">Matchs</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">0</div>
-              <p className="text-xs text-foreground/60 mt-1">
-                Actifs
-              </p>
+              <div className="text-2xl font-bold text-primary">0</div>
+              <p className="text-xs text-foreground/60 mt-1">Actifs</p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-border">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium">Messages</CardTitle>
+              <CardTitle className="text-sm font-medium text-foreground/70">Messages</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">0</div>
-              <p className="text-xs text-foreground/60 mt-1">
-                Non lus
-              </p>
+              <div className="text-2xl font-bold text-primary">0</div>
+              <p className="text-xs text-foreground/60 mt-1">Non lus</p>
             </CardContent>
           </Card>
         </div>
@@ -86,92 +81,96 @@ export default function Dashboard() {
         {/* Main Actions */}
         <div className="grid md:grid-cols-2 gap-6">
           {/* Profile Card */}
-          <Card className="border-border">
+          <Card className="border-border hover:border-secondary/50 transition-colors">
             <CardHeader>
               <div className="flex items-center gap-2 mb-2">
-                <Users className="w-5 h-5 text-accent" />
-                <CardTitle className="text-foreground">Mon Profil</CardTitle>
+                <Users className="w-5 h-5 text-secondary" />
+                <CardTitle className="text-primary">Mon Profil</CardTitle>
               </div>
               <CardDescription>
                 Complétez et mettez à jour votre profil
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
-                <p className="text-sm text-slate-600 dark:text-slate-400">
-                  {profile?.bio || "Pas de bio ajoutée"}
-                </p>
-                <Link href="/profile/edit">
-                  <Button className="w-full">Modifier le profil</Button>
-                </Link>
-              </div>
+              <p className="text-sm text-foreground/70 mb-3">
+                Ajoutez une photo, une bio et vos préférences pour améliorer vos matchs
+              </p>
+              <Link href="/profile-edit">
+                <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                  Éditer mon profil
+                </Button>
+              </Link>
             </CardContent>
           </Card>
 
           {/* Discover Card */}
-          <Card className="border-border">
+          <Card className="border-border hover:border-secondary/50 transition-colors">
             <CardHeader>
               <div className="flex items-center gap-2 mb-2">
-                <Heart className="w-5 h-5 text-accent" />
-                <CardTitle className="text-foreground">Découvrir</CardTitle>
+                <Heart className="w-5 h-5 text-secondary" />
+                <CardTitle className="text-primary">Découvrir</CardTitle>
               </div>
               <CardDescription>
                 Trouvez des personnes compatibles
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-foreground/60 mb-3">
+              <p className="text-sm text-foreground/70 mb-3">
                 Explorez les profils et trouvez vos matchs
               </p>
               <Link href="/discover">
-                <Button className="w-full">Commencer à découvrir</Button>
+                <Button className="w-full bg-secondary hover:bg-secondary/90 text-primary">
+                  Commencer à découvrir
+                </Button>
               </Link>
             </CardContent>
           </Card>
 
           {/* Messaging Card */}
-          <Card className="border-border">
+          <Card className="border-border hover:border-secondary/50 transition-colors">
             <CardHeader>
               <div className="flex items-center gap-2 mb-2">
                 <MessageCircle className="w-5 h-5 text-secondary" />
-                <CardTitle className="text-foreground">Messages</CardTitle>
+                <CardTitle className="text-primary">Messages</CardTitle>
               </div>
               <CardDescription>
                 Communiquez avec vos matchs
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-foreground/60 mb-3">
-                Vous n'avez pas encore de conversations
+              <p className="text-sm text-foreground/70 mb-3">
+                Discutez en temps réel avec vos connexions
               </p>
               <Link href="/messages">
-                <Button className="w-full" variant="outline">Voir les messages</Button>
+                <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                  Voir les messages
+                </Button>
               </Link>
             </CardContent>
           </Card>
 
           {/* Security Card */}
-          <Card className="border-border">
+          <Card className="border-border hover:border-secondary/50 transition-colors">
             <CardHeader>
               <div className="flex items-center gap-2 mb-2">
-                <Settings className="w-5 h-5 text-accent/70" />
-                <CardTitle className="text-foreground">Sécurité</CardTitle>
+                <Settings className="w-5 h-5 text-secondary" />
+                <CardTitle className="text-primary">Sécurité</CardTitle>
               </div>
               <CardDescription>
-                Gérez vos paramètres de sécurité
+                Protégez votre compte
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-foreground/60 mb-3">
-                2FA: {twoFAStatus?.isEnabled ? "Activé" : "Désactivé"}
+              <p className="text-sm text-foreground/70 mb-3">
+                Configurez la 2FA et gérez vos paramètres de sécurité
               </p>
-              <Link href="/settings/security">
-                <Button className="w-full" variant="outline">Gérer la sécurité</Button>
-              </Link>
+              <Button variant="outline" className="w-full">
+                Paramètres de sécurité
+              </Button>
             </CardContent>
           </Card>
         </div>
       </div>
-    </DashboardLayout>
+    </div>
   );
 }

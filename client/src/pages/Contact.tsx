@@ -3,12 +3,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Mail, MessageSquare, Phone } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
-import { Mail, MessageSquare } from "lucide-react";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
@@ -42,10 +42,13 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-accent/10 py-12">
-      <div className="container max-w-2xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-foreground mb-4">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/5 py-12">
+      <div className="container max-w-4xl mx-auto px-4">
+        <div className="text-center mb-16">
+          <h1 
+            className="text-5xl font-bold text-primary mb-4"
+            style={{ fontFamily: "'Abril Fatface', serif" }}
+          >
             Nous contacter
           </h1>
           <p className="text-xl text-foreground/70">
@@ -54,10 +57,10 @@ export default function Contact() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 mb-12">
-          <Card className="border-border text-center">
+          <Card className="border-border text-center hover:border-secondary/50 transition-colors">
             <CardHeader>
-              <Mail className="w-8 h-8 mx-auto text-accent mb-2" />
-              <CardTitle className="text-lg">Email</CardTitle>
+              <Mail className="w-8 h-8 mx-auto text-secondary mb-2" />
+              <CardTitle className="text-primary">Email</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-foreground/70">
@@ -66,10 +69,10 @@ export default function Contact() {
             </CardContent>
           </Card>
 
-          <Card className="border-border text-center">
+          <Card className="border-border text-center hover:border-secondary/50 transition-colors">
             <CardHeader>
               <MessageSquare className="w-8 h-8 mx-auto text-secondary mb-2" />
-              <CardTitle className="text-lg">Chat</CardTitle>
+              <CardTitle className="text-primary">Chat</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-foreground/70">
@@ -78,14 +81,14 @@ export default function Contact() {
             </CardContent>
           </Card>
 
-          <Card className="border-border text-center">
+          <Card className="border-border text-center hover:border-secondary/50 transition-colors">
             <CardHeader>
-              <MessageSquare className="w-8 h-8 mx-auto text-accent/70 mb-2" />
-              <CardTitle className="text-lg">Réponse rapide</CardTitle>
+              <Phone className="w-8 h-8 mx-auto text-secondary mb-2" />
+              <CardTitle className="text-primary">Téléphone</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-foreground/70">
-                Moins de 24h
+                +33 (0)1 23 45 67 89
               </p>
             </CardContent>
           </Card>
@@ -93,7 +96,7 @@ export default function Contact() {
 
         <Card className="border-border">
           <CardHeader>
-            <CardTitle>Formulaire de contact</CardTitle>
+            <CardTitle className="text-primary text-2xl">Formulaire de contact</CardTitle>
             <CardDescription>
               Remplissez le formulaire ci-dessous et nous vous répondrons dès que possible.
             </CardDescription>
@@ -158,9 +161,9 @@ export default function Contact() {
               <Button
                 type="submit"
                 disabled={isSubmitting || submitContact.isPending}
-                className="w-full"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
               >
-                {isSubmitting || submitContact.isPending ? "Envoi..." : "Envoyer le message"}
+                {isSubmitting || submitContact.isPending ? "Envoi en cours..." : "Envoyer le message"}
               </Button>
             </form>
           </CardContent>

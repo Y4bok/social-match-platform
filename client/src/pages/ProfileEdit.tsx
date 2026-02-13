@@ -53,15 +53,17 @@ export default function ProfileEdit() {
   };
 
   if (!user) {
-    return <div>Chargement...</div>;
+    return <div className="p-8">Chargement...</div>;
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-accent/10 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/5 py-12">
       <div className="container max-w-2xl mx-auto px-4">
         <Card className="border-border">
           <CardHeader>
-            <CardTitle>Modifier mon profil</CardTitle>
+            <CardTitle className="text-primary text-3xl" style={{ fontFamily: "'Abril Fatface', serif" }}>
+              Modifier mon profil
+            </CardTitle>
             <CardDescription>
               Complétez vos informations pour améliorer vos chances de matching
             </CardDescription>
@@ -144,7 +146,7 @@ export default function ProfileEdit() {
                 <Button
                   type="submit"
                   disabled={isSubmitting || updateProfile.isPending}
-                  className="flex-1"
+                  className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground"
                 >
                   {isSubmitting || updateProfile.isPending ? "Enregistrement..." : "Enregistrer"}
                 </Button>

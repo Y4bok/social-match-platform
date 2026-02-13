@@ -1,7 +1,7 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, MessageCircle, Shield, Zap, Users, Lock } from "lucide-react";
+import { Heart, MessageCircle, Shield, Sparkles } from "lucide-react";
 import { getLoginUrl } from "@/const";
 import { Link } from "wouter";
 
@@ -9,34 +9,35 @@ export default function Home() {
   const { user, isAuthenticated } = useAuth();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-accent/10 dark:from-background dark:to-accent/20">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/5">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-background/80 dark:bg-background/80 backdrop-blur-md border-b border-border">
-        <div className="container max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+        <div className="container max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Heart className="w-6 h-6 text-accent" />
-            <span className="text-xl font-bold text-foreground">SocialMatch</span>
+            <Heart className="w-8 h-8 text-primary fill-primary" />
+            <span className="text-2xl font-bold text-primary" style={{ fontFamily: "'Abril Fatface', serif" }}>
+              SocialMatch
+            </span>
           </div>
-          <div className="flex gap-4 items-center">
+          <div className="flex items-center gap-4">
             {isAuthenticated ? (
               <>
-                <Link href="/discover">
-                  <Button variant="outline">Découvrir</Button>
-                </Link>
                 <Link href="/dashboard">
-                  <Button>Dashboard</Button>
+                  <Button variant="ghost">Dashboard</Button>
+                </Link>
+                <Link href="/discover">
+                  <Button variant="ghost">Découvrir</Button>
                 </Link>
               </>
             ) : (
               <>
-                <Link href="/contact">
-                  <Button variant="outline">Contact</Button>
-                </Link>
                 <a href={getLoginUrl()}>
-                  <Button variant="outline">Connexion</Button>
+                  <Button variant="ghost">Se connecter</Button>
                 </a>
                 <a href={getLoginUrl()}>
-                  <Button>S'inscrire</Button>
+                  <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                    S'inscrire
+                  </Button>
                 </a>
               </>
             )}
@@ -45,43 +46,99 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="container max-w-6xl mx-auto px-4 py-20 md:py-32">
+      <section className="container max-w-6xl mx-auto px-4 py-24 md:py-32">
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <h1 className="text-5xl md:text-6xl font-bold text-foreground leading-tight">
-              Trouvez votre <span className="text-accent">connexion</span> parfaite
-            </h1>
-            <p className="text-xl text-foreground/70">
-              Une plateforme moderne et sécurisée pour rencontrer des personnes partageant vos intérêts. Authentification 2FA, messagerie instantanée et matching intelligent.
-            </p>
-            <div className="flex gap-4 pt-4">
-              <a href={getLoginUrl()}>
-                <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary-foreground">
-                  Commencer maintenant
-                </Button>
-              </a>
-              <a href="#features">
-                <Button size="lg" variant="outline">
-                  En savoir plus
-                </Button>
-              </a>
+          <div className="space-y-8">
+            <div className="space-y-4">
+              <h1 
+                className="text-5xl md:text-6xl font-bold text-primary leading-tight"
+                style={{ fontFamily: "'Abril Fatface', serif" }}
+              >
+                Trouvez votre <span className="text-secondary">connexion</span> parfaite
+              </h1>
+              <p className="text-xl text-foreground/70" style={{ fontFamily: "'Nunito', sans-serif" }}>
+                Une plateforme moderne et sécurisée pour rencontrer des personnes partageant vos intérêts. Authentification 2FA, messagerie instantanée et matching intelligent.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              {isAuthenticated ? (
+                <>
+                  <Link href="/discover">
+                    <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto">
+                      Commencer à découvrir
+                    </Button>
+                  </Link>
+                  <Link href="/dashboard">
+                    <Button size="lg" variant="outline" className="w-full sm:w-auto">
+                      Mon profil
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <a href={getLoginUrl()}>
+                    <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto">
+                      Commencer maintenant
+                    </Button>
+                  </a>
+                  <a href={getLoginUrl()}>
+                    <Button size="lg" variant="outline" className="w-full sm:w-auto">
+                      En savoir plus
+                    </Button>
+                  </a>
+                </>
+              )}
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-4 pt-8">
+              <div>
+                <div className="text-3xl font-bold text-primary">10K+</div>
+                <p className="text-sm text-foreground/60">Utilisateurs actifs</p>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-primary">50K+</div>
+                <p className="text-sm text-foreground/60">Matchs créés</p>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-primary">99%</div>
+                <p className="text-sm text-foreground/60">Satisfaction</p>
+              </div>
             </div>
           </div>
+
+          {/* Hero Image */}
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-accent/20 to-secondary/20 rounded-3xl blur-3xl"></div>
-            <div className="relative bg-gradient-to-br from-accent to-secondary rounded-3xl p-8 text-primary-foreground shadow-2xl">
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <Heart className="w-8 h-8" />
-                  <span className="text-lg font-semibold">Matchs compatibles</span>
+            <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-primary/10 rounded-3xl blur-3xl"></div>
+            <div className="relative bg-gradient-to-br from-secondary/30 to-primary/20 rounded-3xl p-12 border border-secondary/30">
+              <div className="space-y-6">
+                <div className="flex items-center gap-4 bg-background/50 backdrop-blur p-4 rounded-2xl">
+                  <div className="w-12 h-12 rounded-full bg-secondary/30 flex items-center justify-center">
+                    <Heart className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground">Matching intelligent</p>
+                    <p className="text-sm text-foreground/60">Trouvez votre personne idéale</p>
+                  </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <MessageCircle className="w-8 h-8" />
-                  <span className="text-lg font-semibold">Chat en temps réel</span>
+                <div className="flex items-center gap-4 bg-background/50 backdrop-blur p-4 rounded-2xl">
+                  <div className="w-12 h-12 rounded-full bg-secondary/30 flex items-center justify-center">
+                    <MessageCircle className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground">Chat en temps réel</p>
+                    <p className="text-sm text-foreground/60">Communiquez instantanément</p>
+                  </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Shield className="w-8 h-8" />
-                  <span className="text-lg font-semibold">Sécurité maximale</span>
+                <div className="flex items-center gap-4 bg-background/50 backdrop-blur p-4 rounded-2xl">
+                  <div className="w-12 h-12 rounded-full bg-secondary/30 flex items-center justify-center">
+                    <Shield className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground">Sécurité maximale</p>
+                    <p className="text-sm text-foreground/60">Authentification 2FA</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -90,184 +147,136 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 bg-card dark:bg-card border-t border-border">
+      <section className="bg-primary/5 py-24">
         <div className="container max-w-6xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-foreground mb-4">
-              Fonctionnalités principales
+          <div className="text-center mb-16">
+            <h2 
+              className="text-4xl md:text-5xl font-bold text-primary mb-4"
+              style={{ fontFamily: "'Abril Fatface', serif" }}
+            >
+              Pourquoi choisir SocialMatch ?
             </h2>
-            <p className="text-xl text-foreground/70">
-              Tout ce dont vous avez besoin pour une expérience de rencontre sécurisée et moderne
+            <p className="text-xl text-foreground/70 max-w-2xl mx-auto">
+              Une plateforme complète pour rencontrer, discuter et créer des connexions durables
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <Card className="border-border hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <Heart className="w-8 h-8 text-accent mb-2" />
-                <CardTitle>Matching Intelligent</CardTitle>
-              </CardHeader>
-              <CardContent>
-              <CardDescription className="text-base text-foreground/60">
-                Algorithme de matching basé sur vos préférences et intérêts pour trouver les meilleures connexions.
-              </CardDescription>
-              </CardContent>
-            </Card>
-
-            {/* Feature 2 */}
-            <Card className="border-border hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <MessageCircle className="w-8 h-8 text-secondary mb-2" />
-                <CardTitle>Messagerie Instantanée</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base">
-                  Communiquez en temps réel avec vos matchs via notre système de chat sécurisé et fluide.
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            {/* Feature 3 */}
-            <Card className="border-border hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <Shield className="w-8 h-8 text-accent/70 mb-2" />
-                <CardTitle>Authentification 2FA</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base">
-                  Protégez votre compte avec l'authentification à deux facteurs pour une sécurité maximale.
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            {/* Feature 4 */}
-            <Card className="border-border hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <Lock className="w-8 h-8 text-secondary/70 mb-2" />
-                <CardTitle>Données Chiffrées</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base">
-                  Tous vos messages et données personnelles sont chiffrés et stockés de manière sécurisée.
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            {/* Feature 5 */}
-            <Card className="border-border hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <Users className="w-8 h-8 text-accent/60 mb-2" />
-                <CardTitle>Profils Vérifiés</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base">
-                  Système de vérification des profils pour garantir l'authenticité de chaque utilisateur.
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            {/* Feature 6 */}
-            <Card className="border-border hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <Zap className="w-8 h-8 text-accent/50 mb-2" />
-                <CardTitle>Performance</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base">
-                  Interface rapide et réactive optimisée pour une expérience utilisateur fluide sur tous les appareils.
-                </CardDescription>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section className="py-20 bg-background/50 border-t border-border">
-        <div className="container max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-foreground mb-16 text-center">
-            Comment ça marche
-          </h2>
-
-          <div className="grid md:grid-cols-4 gap-8">
             {[
-              { step: 1, title: "Créer un profil", desc: "Inscrivez-vous et complétez votre profil avec vos informations" },
-              { step: 2, title: "Découvrir", desc: "Explorez les profils et trouvez des personnes compatibles" },
-              { step: 3, title: "Matcher", desc: "Likez les profils qui vous intéressent et attendez les matchs" },
-              { step: 4, title: "Discuter", desc: "Commencez à converser avec vos matchs en temps réel" },
-            ].map((item) => (
-              <div key={item.step} className="text-center">
-                <div className="w-16 h-16 bg-accent text-primary-foreground rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                  {item.step}
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-foreground/70">
-                  {item.desc}
-                </p>
-              </div>
+              {
+                icon: Heart,
+                title: "Matching Intelligent",
+                description: "Algorithme de matching basé sur vos préférences et intérêts"
+              },
+              {
+                icon: MessageCircle,
+                title: "Messagerie Sécurisée",
+                description: "Chat en temps réel avec chiffrement end-to-end"
+              },
+              {
+                icon: Shield,
+                title: "Authentification 2FA",
+                description: "Protégez votre compte avec la double authentification"
+              },
+              {
+                icon: Sparkles,
+                title: "Profils Vérifiés",
+                description: "Vérification d'identité pour plus de confiance"
+              },
+              {
+                icon: Heart,
+                title: "Système d'Accord",
+                description: "Consentement mutuel avant toute interaction"
+              },
+              {
+                icon: MessageCircle,
+                title: "Support 24/7",
+                description: "Équipe disponible pour vous aider à tout moment"
+              }
+            ].map((feature, idx) => (
+              <Card key={idx} className="border-border hover:border-secondary/50 transition-colors">
+                <CardHeader>
+                  <feature.icon className="w-8 h-8 text-secondary mb-2" />
+                  <CardTitle className="text-primary">{feature.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-foreground/70">{feature.description}</p>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-accent to-secondary text-primary-foreground">
-        <div className="container max-w-6xl mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6 text-primary-foreground">
-            Prêt à trouver votre connexion ?
+      <section className="container max-w-6xl mx-auto px-4 py-24">
+        <div className="bg-gradient-to-r from-primary to-primary/80 rounded-3xl p-12 md:p-16 text-center">
+          <h2 
+            className="text-4xl md:text-5xl font-bold text-primary-foreground mb-6"
+            style={{ fontFamily: "'Abril Fatface', serif" }}
+          >
+            Prêt à trouver votre match ?
           </h2>
-          <p className="text-xl mb-8 text-primary-foreground/90">
-            Rejoignez des milliers d'utilisateurs qui ont trouvé leur match parfait
+          <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
+            Rejoignez des milliers d'utilisateurs qui ont déjà trouvé leur connexion parfaite
           </p>
-          <a href={getLoginUrl()}>
-            <Button size="lg" className="bg-primary-foreground text-accent hover:bg-primary-foreground/90">
-              Commencer gratuitement
-            </Button>
-          </a>
+          {!isAuthenticated && (
+            <a href={getLoginUrl()}>
+              <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-primary">
+                Commencer gratuitement
+              </Button>
+            </a>
+          )}
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-foreground text-background py-12 border-t border-border">
+      <footer className="border-t border-border bg-background/50 backdrop-blur-sm py-12">
         <div className="container max-w-6xl mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <Heart className="w-5 h-5 text-background" />
-                <span className="font-bold text-background">SocialMatch</span>
+                <Heart className="w-6 h-6 text-primary fill-primary" />
+                <span className="font-bold text-primary" style={{ fontFamily: "'Abril Fatface', serif" }}>
+                  SocialMatch
+                </span>
               </div>
-              <p className="text-sm text-background/80">La plateforme de rencontre moderne et sécurisée</p>
+              <p className="text-sm text-foreground/60">
+                Trouvez votre connexion parfaite
+              </p>
             </div>
             <div>
-              <h4 className="font-semibold text-background mb-4">Produit</h4>
-              <ul className="space-y-2 text-sm text-background/80">
-                <li><a href="#" className="hover:text-background transition">Fonctionnalités</a></li>
-                <li><a href="#" className="hover:text-background transition">Tarifs</a></li>
-                <li><a href="#" className="hover:text-background transition">Sécurité</a></li>
+              <h4 className="font-semibold text-foreground mb-4">Produit</h4>
+              <ul className="space-y-2 text-sm text-foreground/60">
+                <li><a href="#" className="hover:text-primary">Fonctionnalités</a></li>
+                <li><a href="#" className="hover:text-primary">Tarifs</a></li>
+                <li><a href="#" className="hover:text-primary">Sécurité</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-background mb-4">Légal</h4>
-              <ul className="space-y-2 text-sm text-background/80">
-                <li><a href="#" className="hover:text-background transition">Conditions</a></li>
-                <li><a href="#" className="hover:text-background transition">Confidentialité</a></li>
-                <li><a href="#" className="hover:text-background transition">Cookies</a></li>
+              <h4 className="font-semibold text-foreground mb-4">Entreprise</h4>
+              <ul className="space-y-2 text-sm text-foreground/60">
+                <li><a href="#" className="hover:text-primary">À propos</a></li>
+                <li><a href="#" className="hover:text-primary">Blog</a></li>
+                <li><a href="/contact" className="hover:text-primary">Contact</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-background mb-4">Contact</h4>
-              <ul className="space-y-2 text-sm text-background/80">
-                <li><Link href="/contact" className="hover:text-background transition">Support</Link></li>
-                <li><a href="#" className="hover:text-background transition">À propos</a></li>
-                <li><a href="#" className="hover:text-background transition">Blog</a></li>
+              <h4 className="font-semibold text-foreground mb-4">Légal</h4>
+              <ul className="space-y-2 text-sm text-foreground/60">
+                <li><a href="#" className="hover:text-primary">Conditions</a></li>
+                <li><a href="#" className="hover:text-primary">Confidentialité</a></li>
+                <li><a href="#" className="hover:text-primary">Cookies</a></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-border pt-8 text-center text-sm text-background/80">
+          <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-foreground/60">
             <p>&copy; 2026 SocialMatch. Tous droits réservés.</p>
+            <div className="flex gap-6 mt-4 md:mt-0">
+              <a href="#" className="hover:text-primary">Twitter</a>
+              <a href="#" className="hover:text-primary">Instagram</a>
+              <a href="#" className="hover:text-primary">LinkedIn</a>
+            </div>
           </div>
         </div>
       </footer>
