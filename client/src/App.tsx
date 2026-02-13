@@ -5,23 +5,37 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
+import ProfileEdit from "./pages/ProfileEdit";
+import { useAuth } from "./_core/hooks/useAuth";
+import Discover from "./pages/Discover";
+import Messages from "./pages/Messages";
+import Contact from "./pages/Contact";
+
+function ProtectedRoute({ component: Component }: { component: React.ComponentType }) {
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) return <div>Chargement...</div>;
+  if (!isAuthenticated) return <NotFound />;
+
+  return <Component />;
+}
 
 function Router() {
-  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path={"/contact"} component={Contact} />
+      <Route path={"/dashboard"} component={() => <ProtectedRoute component={Dashboard} />} />
+      <Route path={"/profile/edit"} component={() => <ProtectedRoute component={ProfileEdit} />} />
+      <Route path={"/discover"} component={() => <ProtectedRoute component={Discover} />} />
+      <Route path={"/messages"} component={() => <ProtectedRoute component={Messages} />} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
     </Switch>
   );
 }
-
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
 
 function App() {
   return (
