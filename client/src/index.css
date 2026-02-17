@@ -43,40 +43,47 @@
 }
 
 :root {
-  /* Nouvelle Palette - Couleurs principales */
-  --primary: oklch(0.25 0.15 320); /* Marron/Bordeaux #5C0029 */
-  --primary-foreground: oklch(0.95 0.05 90); /* Rose pâle #F3E8EE */
-  --sidebar-primary: oklch(0.25 0.15 320);
-  --sidebar-primary-foreground: oklch(0.95 0.05 90);
-  --chart-1: oklch(0.25 0.15 320);
-  --chart-2: oklch(0.85 0.15 90); /* Jaune/Or #F2ED6F */
-  --chart-3: oklch(0.95 0.05 90); /* Rose pâle */
-  --chart-4: oklch(0.30 0.12 320);
-  --chart-5: oklch(0.20 0.10 320);
+  /* Palette Claudine - Codes Hex Exacts */
+  --color-marron-fonce: #5C0029;
+  --color-jaune-or: #F2ED6F;
+  --color-rose-pale: #F3E8EE;
+  --color-beige-clair: #F5E6D3;
+  --color-noir: #000000;
+  
+  /* Variantes de couleurs */
+  --primary: #5C0029; /* Marron foncé */
+  --primary-foreground: #F2ED6F; /* Jaune/Or */
+  --sidebar-primary: #5C0029;
+  --sidebar-primary-foreground: #F2ED6F;
+  --chart-1: #5C0029;
+  --chart-2: #F2ED6F;
+  --chart-3: #F3E8EE;
+  --chart-4: #F5E6D3;
+  --chart-5: #000000;
   --radius: 0.65rem;
-  --background: oklch(0.95 0.05 90); /* Rose très pâle #F3E8EE */
-  --foreground: oklch(0.25 0.15 320); /* Marron/Bordeaux #5C0029 */
-  --card: oklch(0.98 0.02 90); /* Blanc légèrement rosé */
-  --card-foreground: oklch(0.25 0.15 320);
-  --popover: oklch(0.98 0.02 90);
-  --popover-foreground: oklch(0.25 0.15 320);
-  --secondary: oklch(0.85 0.15 90); /* Jaune/Or #F2ED6F */
-  --secondary-foreground: oklch(0.25 0.15 320);
-  --muted: oklch(0.88 0.05 90); /* Rose très pâle */
-  --muted-foreground: oklch(0.40 0.10 320);
-  --accent: oklch(0.85 0.15 90); /* Jaune/Or principal */
-  --accent-foreground: oklch(0.25 0.15 320);
-  --destructive: oklch(0.50 0.15 0); /* Rouge */
-  --destructive-foreground: oklch(0.98 0.02 90);
-  --border: oklch(0.92 0.03 90); /* Rose très pâle */
-  --input: oklch(0.94 0.04 90);
-  --ring: oklch(0.85 0.15 90);
-  --sidebar: oklch(0.95 0.05 90);
-  --sidebar-foreground: oklch(0.25 0.15 320);
-  --sidebar-accent: oklch(0.85 0.15 90);
-  --sidebar-accent-foreground: oklch(0.25 0.15 320);
-  --sidebar-border: oklch(0.92 0.03 90);
-  --sidebar-ring: oklch(0.85 0.15 90);
+  --background: #F5E6D3; /* Beige clair - fond principal */
+  --foreground: #000000; /* Noir - texte principal */
+  --card: #F3E8EE; /* Rose pâle - cartes */
+  --card-foreground: #5C0029; /* Marron foncé */
+  --popover: #F5E6D3;
+  --popover-foreground: #5C0029;
+  --secondary: #F2ED6F; /* Jaune/Or */
+  --secondary-foreground: #5C0029;
+  --muted: #F3E8EE; /* Rose pâle */
+  --muted-foreground: #5C0029;
+  --accent: #F2ED6F; /* Jaune/Or principal */
+  --accent-foreground: #5C0029;
+  --destructive: #DC2626; /* Rouge standard */
+  --destructive-foreground: #F5E6D3;
+  --border: #F3E8EE; /* Rose pâle */
+  --input: #F3E8EE;
+  --ring: #F2ED6F;
+  --sidebar: #F5E6D3;
+  --sidebar-foreground: #5C0029;
+  --sidebar-accent: #F2ED6F;
+  --sidebar-accent-foreground: #5C0029;
+  --sidebar-border: #F3E8EE;
+  --sidebar-ring: #F2ED6F;
 }
 
 .dark {

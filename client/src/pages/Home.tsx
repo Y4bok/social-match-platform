@@ -1,282 +1,219 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, MessageCircle, Shield, Sparkles } from "lucide-react";
+import { Heart, MessageCircle, Shield, Zap } from "lucide-react";
 import { getLoginUrl } from "@/const";
-import { Link } from "wouter";
+import { useLocation } from "wouter";
 
 export default function Home() {
   const { user, isAuthenticated } = useAuth();
+  const [, navigate] = useLocation();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/5">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-        <div className="container max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+    <div className="min-h-screen flex flex-col bg-beige-clair">
+      {/* Header */}
+      <header className="sticky top-0 z-50 bg-beige-clair border-b border-rose-pale shadow-sm">
+        <div className="container flex items-center justify-between h-16">
           <div className="flex items-center gap-2">
-            <Heart className="w-8 h-8 text-primary fill-primary" />
-            <span className="text-2xl font-bold text-primary" style={{ fontFamily: "'Abril Fatface', serif" }}>
+            <Heart className="w-8 h-8 fill-marron-fonce text-marron-fonce" />
+            <h1 className="text-2xl font-bold text-marron-fonce" style={{ fontFamily: 'Abril Fatface' }}>
               SocialMatch
-            </span>
+            </h1>
           </div>
+          <nav className="hidden md:flex items-center gap-8">
+            <a href="/" className="text-marron-fonce hover:text-jaune-or transition">Accueil</a>
+            <a href="/cgv" className="text-marron-fonce hover:text-jaune-or transition">CGV</a>
+            <a href="/cgu" className="text-marron-fonce hover:text-jaune-or transition">CGU</a>
+            <a href="/contact" className="text-marron-fonce hover:text-jaune-or transition">Contact</a>
+          </nav>
           <div className="flex items-center gap-4">
             {isAuthenticated ? (
               <>
-                <Link href="/dashboard">
-                  <Button variant="ghost">Dashboard</Button>
-                </Link>
-                <Link href="/discover">
-                  <Button variant="ghost">Découvrir</Button>
-                </Link>
+                <Button
+                  variant="outline"
+                  onClick={() => navigate("/dashboard")}
+                  className="border-marron-fonce text-marron-fonce hover:bg-rose-pale"
+                >
+                  Dashboard
+                </Button>
               </>
             ) : (
-              <>
-                <a href={getLoginUrl()}>
-                  <Button variant="ghost">Se connecter</Button>
-                </a>
-                <a href={getLoginUrl()}>
-                  <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                    S'inscrire
-                  </Button>
-                </a>
-              </>
+              <Button
+                onClick={() => window.location.href = getLoginUrl()}
+                className="bg-marron-fonce text-jaune-or hover:bg-rose-pale hover:text-marron-fonce transition"
+              >
+                Se connecter
+              </Button>
             )}
           </div>
         </div>
-      </nav>
+      </header>
 
-      {/* Hero Section */}
-      <section className="container max-w-6xl mx-auto px-4 py-24 md:py-32">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <h1 
-                className="text-5xl md:text-6xl font-bold text-primary leading-tight"
-                style={{ fontFamily: "'Abril Fatface', serif" }}
-              >
-                Trouvez votre <span className="text-secondary">connexion</span> parfaite
-              </h1>
-              <p className="text-xl text-foreground/70" style={{ fontFamily: "'Nunito', sans-serif" }}>
-                Une plateforme moderne et sécurisée pour rencontrer des personnes partageant vos intérêts. Authentification 2FA, messagerie instantanée et matching intelligent.
+      {/* Hero Section - Variante 1: Beige + Noir + Jaune */}
+      <section className="py-20 px-4 bg-gradient-to-br from-beige-clair to-rose-pale">
+        <div className="container max-w-4xl mx-auto text-center">
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-marron-fonce" style={{ fontFamily: 'Abril Fatface' }}>
+            Trouvez votre <span className="text-jaune-or">connexion</span> parfaite
+          </h2>
+          <p className="text-xl text-marron-fonce mb-8 font-nunito">
+            Une plateforme moderne et sécurisée pour rencontrer des personnes partageant vos intérêts. 
+            Authentification 2FA, messagerie instantanée et matching intelligent.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              onClick={() => window.location.href = getLoginUrl()}
+              className="bg-marron-fonce text-jaune-or hover:bg-rose-pale hover:text-marron-fonce px-8 py-6 text-lg transition"
+            >
+              Commencer à découvrir
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => navigate("/contact")}
+              className="border-2 border-marron-fonce text-marron-fonce hover:bg-rose-pale px-8 py-6 text-lg"
+            >
+              En savoir plus
+            </Button>
+          </div>
+
+          {/* Stats - Variante 2: Marron + Jaune */}
+          <div className="grid grid-cols-3 gap-4 mt-16">
+            <div className="bg-marron-fonce text-jaune-or p-6 rounded-lg">
+              <div className="text-3xl font-bold mb-2">10K+</div>
+              <div className="text-sm">Utilisateurs actifs</div>
+            </div>
+            <div className="bg-marron-fonce text-jaune-or p-6 rounded-lg">
+              <div className="text-3xl font-bold mb-2">50K+</div>
+              <div className="text-sm">Matchs créés</div>
+            </div>
+            <div className="bg-marron-fonce text-jaune-or p-6 rounded-lg">
+              <div className="text-3xl font-bold mb-2">99%</div>
+              <div className="text-sm">Satisfaction</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section - Variante 3: Rose pâle + Marron */}
+      <section className="py-20 px-4 bg-beige-clair">
+        <div className="container max-w-5xl mx-auto">
+          <h3 className="text-4xl font-bold text-center mb-16 text-marron-fonce" style={{ fontFamily: 'Abril Fatface' }}>
+            Nos Fonctionnalités
+          </h3>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Feature 1 */}
+            <div className="bg-rose-pale p-6 rounded-lg border-2 border-marron-fonce hover:shadow-lg transition">
+              <Heart className="w-12 h-12 text-marron-fonce mb-4" />
+              <h4 className="text-xl font-bold text-marron-fonce mb-2" style={{ fontFamily: 'Abril Fatface' }}>
+                Matching Intelligent
+              </h4>
+              <p className="text-marron-fonce text-sm">
+                Trouvez votre personne idéale avec notre système de matching avancé
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              {isAuthenticated ? (
-                <>
-                  <Link href="/discover">
-                    <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto">
-                      Commencer à découvrir
-                    </Button>
-                  </Link>
-                  <Link href="/dashboard">
-                    <Button size="lg" variant="outline" className="w-full sm:w-auto">
-                      Mon profil
-                    </Button>
-                  </Link>
-                </>
-              ) : (
-                <>
-                  <a href={getLoginUrl()}>
-                    <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto">
-                      Commencer maintenant
-                    </Button>
-                  </a>
-                  <a href={getLoginUrl()}>
-                    <Button size="lg" variant="outline" className="w-full sm:w-auto">
-                      En savoir plus
-                    </Button>
-                  </a>
-                </>
-              )}
+            {/* Feature 2 */}
+            <div className="bg-rose-pale p-6 rounded-lg border-2 border-marron-fonce hover:shadow-lg transition">
+              <MessageCircle className="w-12 h-12 text-marron-fonce mb-4" />
+              <h4 className="text-xl font-bold text-marron-fonce mb-2" style={{ fontFamily: 'Abril Fatface' }}>
+                Chat en Temps Réel
+              </h4>
+              <p className="text-marron-fonce text-sm">
+                Communiquez instantanément avec vos matchs
+              </p>
             </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 pt-8">
-              <div>
-                <div className="text-3xl font-bold text-primary">10K+</div>
-                <p className="text-sm text-foreground/60">Utilisateurs actifs</p>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-primary">50K+</div>
-                <p className="text-sm text-foreground/60">Matchs créés</p>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-primary">99%</div>
-                <p className="text-sm text-foreground/60">Satisfaction</p>
-              </div>
+            {/* Feature 3 */}
+            <div className="bg-rose-pale p-6 rounded-lg border-2 border-marron-fonce hover:shadow-lg transition">
+              <Shield className="w-12 h-12 text-marron-fonce mb-4" />
+              <h4 className="text-xl font-bold text-marron-fonce mb-2" style={{ fontFamily: 'Abril Fatface' }}>
+                Sécurité Maximale
+              </h4>
+              <p className="text-marron-fonce text-sm">
+                Authentification 2FA et protection de vos données
+              </p>
             </div>
-          </div>
 
-          {/* Hero Image */}
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-primary/10 rounded-3xl blur-3xl"></div>
-            <div className="relative bg-gradient-to-br from-secondary/30 to-primary/20 rounded-3xl p-12 border border-secondary/30">
-              <div className="space-y-6">
-                <div className="flex items-center gap-4 bg-background/50 backdrop-blur p-4 rounded-2xl">
-                  <div className="w-12 h-12 rounded-full bg-secondary/30 flex items-center justify-center">
-                    <Heart className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground">Matching intelligent</p>
-                    <p className="text-sm text-foreground/60">Trouvez votre personne idéale</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4 bg-background/50 backdrop-blur p-4 rounded-2xl">
-                  <div className="w-12 h-12 rounded-full bg-secondary/30 flex items-center justify-center">
-                    <MessageCircle className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground">Chat en temps réel</p>
-                    <p className="text-sm text-foreground/60">Communiquez instantanément</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4 bg-background/50 backdrop-blur p-4 rounded-2xl">
-                  <div className="w-12 h-12 rounded-full bg-secondary/30 flex items-center justify-center">
-                    <Shield className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground">Sécurité maximale</p>
-                    <p className="text-sm text-foreground/60">Authentification 2FA</p>
-                  </div>
-                </div>
-              </div>
+            {/* Feature 4 */}
+            <div className="bg-rose-pale p-6 rounded-lg border-2 border-marron-fonce hover:shadow-lg transition">
+              <Zap className="w-12 h-12 text-marron-fonce mb-4" />
+              <h4 className="text-xl font-bold text-marron-fonce mb-2" style={{ fontFamily: 'Abril Fatface' }}>
+                Expérience Rapide
+              </h4>
+              <p className="text-marron-fonce text-sm">
+                Interface fluide et intuitive pour une meilleure expérience
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="bg-primary/5 py-24">
-        <div className="container max-w-6xl mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 
-              className="text-4xl md:text-5xl font-bold text-primary mb-4"
-              style={{ fontFamily: "'Abril Fatface', serif" }}
-            >
-              Pourquoi choisir SocialMatch ?
-            </h2>
-            <p className="text-xl text-foreground/70 max-w-2xl mx-auto">
-              Une plateforme complète pour rencontrer, discuter et créer des connexions durables
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Heart,
-                title: "Matching Intelligent",
-                description: "Algorithme de matching basé sur vos préférences et intérêts"
-              },
-              {
-                icon: MessageCircle,
-                title: "Messagerie Sécurisée",
-                description: "Chat en temps réel avec chiffrement end-to-end"
-              },
-              {
-                icon: Shield,
-                title: "Authentification 2FA",
-                description: "Protégez votre compte avec la double authentification"
-              },
-              {
-                icon: Sparkles,
-                title: "Profils Vérifiés",
-                description: "Vérification d'identité pour plus de confiance"
-              },
-              {
-                icon: Heart,
-                title: "Système d'Accord",
-                description: "Consentement mutuel avant toute interaction"
-              },
-              {
-                icon: MessageCircle,
-                title: "Support 24/7",
-                description: "Équipe disponible pour vous aider à tout moment"
-              }
-            ].map((feature, idx) => (
-              <Card key={idx} className="border-border hover:border-secondary/50 transition-colors">
-                <CardHeader>
-                  <feature.icon className="w-8 h-8 text-secondary mb-2" />
-                  <CardTitle className="text-primary">{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-foreground/70">{feature.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+      {/* Testimonials Section - Variante 4: Marron + Jaune */}
+      <section className="py-20 px-4 bg-gradient-to-r from-marron-fonce to-marron-fonce">
+        <div className="container max-w-4xl mx-auto">
+          <h3 className="text-4xl font-bold text-center mb-16 text-jaune-or" style={{ fontFamily: 'Abril Fatface' }}>
+            Témoignages
+          </h3>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-jaune-or p-8 rounded-lg">
+              <p className="text-marron-fonce mb-4 italic">
+                "SocialMatch m'a permis de rencontrer quelqu'un d'incroyable. L'interface est simple et sécurisée!"
+              </p>
+              <div className="font-bold text-marron-fonce">Marie D.</div>
+            </div>
+            <div className="bg-jaune-or p-8 rounded-lg">
+              <p className="text-marron-fonce mb-4 italic">
+                "J'aime la sécurité avec la 2FA et la messagerie instantanée. Vraiment une plateforme de qualité."
+              </p>
+              <div className="font-bold text-marron-fonce">Jean P.</div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="container max-w-6xl mx-auto px-4 py-24">
-        <div className="bg-gradient-to-r from-primary to-primary/80 rounded-3xl p-12 md:p-16 text-center">
-          <h2 
-            className="text-4xl md:text-5xl font-bold text-primary-foreground mb-6"
-            style={{ fontFamily: "'Abril Fatface', serif" }}
-          >
+      {/* CTA Section - Variante 5: Beige + Marron + Jaune */}
+      <section className="py-20 px-4 bg-beige-clair border-t-4 border-marron-fonce">
+        <div className="container max-w-3xl mx-auto text-center">
+          <h3 className="text-4xl font-bold mb-6 text-marron-fonce" style={{ fontFamily: 'Abril Fatface' }}>
             Prêt à trouver votre match ?
-          </h2>
-          <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
-            Rejoignez des milliers d'utilisateurs qui ont déjà trouvé leur connexion parfaite
+          </h3>
+          <p className="text-lg text-marron-fonce mb-8">
+            Rejoignez des milliers d'utilisateurs qui ont déjà trouvé leur connexion parfaite.
           </p>
-          {!isAuthenticated && (
-            <a href={getLoginUrl()}>
-              <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-primary">
-                Commencer gratuitement
-              </Button>
-            </a>
-          )}
+          <Button
+            onClick={() => window.location.href = getLoginUrl()}
+            className="bg-marron-fonce text-jaune-or hover:bg-rose-pale hover:text-marron-fonce px-12 py-6 text-lg transition"
+          >
+            Créer mon compte maintenant
+          </Button>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-background/50 backdrop-blur-sm py-12">
-        <div className="container max-w-6xl mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
+      <footer className="bg-marron-fonce text-jaune-or py-12 px-4">
+        <div className="container">
+          <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <Heart className="w-6 h-6 text-primary fill-primary" />
-                <span className="font-bold text-primary" style={{ fontFamily: "'Abril Fatface', serif" }}>
-                  SocialMatch
-                </span>
+              <h4 className="font-bold mb-4" style={{ fontFamily: 'Abril Fatface' }}>SocialMatch</h4>
+              <p className="text-sm">Votre plateforme de rencontre sécurisée et moderne.</p>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4" style={{ fontFamily: 'Abril Fatface' }}>Liens</h4>
+              <ul className="text-sm space-y-2">
+                <li><a href="/cgv" className="hover:underline">CGV</a></li>
+                <li><a href="/cgu" className="hover:underline">CGU</a></li>
+                <li><a href="/contact" className="hover:underline">Contact</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4" style={{ fontFamily: 'Abril Fatface' }}>Suivez-nous</h4>
+              <div className="flex gap-4 text-sm">
+                <a href="#" className="hover:underline">Facebook</a>
+                <a href="#" className="hover:underline">Twitter</a>
+                <a href="#" className="hover:underline">Instagram</a>
               </div>
-              <p className="text-sm text-foreground/60">
-                Trouvez votre connexion parfaite
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold text-foreground mb-4">Produit</h4>
-              <ul className="space-y-2 text-sm text-foreground/60">
-                <li><a href="#" className="hover:text-primary">Fonctionnalités</a></li>
-                <li><a href="#" className="hover:text-primary">Tarifs</a></li>
-                <li><a href="#" className="hover:text-primary">Sécurité</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold text-foreground mb-4">Entreprise</h4>
-              <ul className="space-y-2 text-sm text-foreground/60">
-                <li><a href="#" className="hover:text-primary">À propos</a></li>
-                <li><a href="#" className="hover:text-primary">Blog</a></li>
-                <li><a href="/contact" className="hover:text-primary">Contact</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold text-foreground mb-4">Légal</h4>
-              <ul className="space-y-2 text-sm text-foreground/60">
-                <li><a href="#" className="hover:text-primary">Conditions</a></li>
-                <li><a href="#" className="hover:text-primary">Confidentialité</a></li>
-                <li><a href="#" className="hover:text-primary">Cookies</a></li>
-              </ul>
             </div>
           </div>
-          <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-foreground/60">
+          <div className="border-t border-jaune-or pt-8 text-center text-sm">
             <p>&copy; 2026 SocialMatch. Tous droits réservés.</p>
-            <div className="flex gap-6 mt-4 md:mt-0">
-              <a href="#" className="hover:text-primary">Twitter</a>
-              <a href="#" className="hover:text-primary">Instagram</a>
-              <a href="#" className="hover:text-primary">LinkedIn</a>
-            </div>
           </div>
         </div>
       </footer>

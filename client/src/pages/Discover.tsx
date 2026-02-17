@@ -5,6 +5,7 @@ import { Heart, X } from "lucide-react";
 import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
+import { useLocation } from "wouter";
 
 const mockProfiles = [
   {
@@ -35,6 +36,7 @@ const mockProfiles = [
 
 export default function Discover() {
   const { user } = useAuth();
+  const [, navigate] = useLocation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const likeUser = trpc.matching.like.useMutation();
 
@@ -60,42 +62,46 @@ export default function Discover() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/5 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-beige-clair to-rose-pale py-12">
       <div className="container max-w-md mx-auto px-4">
+        {/* Header */}
         <div className="mb-8 text-center">
           <h1 
-            className="text-4xl font-bold text-primary mb-2"
-            style={{ fontFamily: "'Abril Fatface', serif" }}
+            className="text-4xl font-bold text-marron-fonce mb-2"
+            style={{ fontFamily: 'Abril Fatface' }}
           >
             Découvrir
           </h1>
-          <p className="text-lg text-foreground/70">
+          <p className="text-lg text-marron-fonce/70">
             Trouvez votre match parfait
+          </p>
+          <p className="text-sm text-marron-fonce/60 mt-2">
+            Profil {currentIndex + 1} sur {mockProfiles.length}
           </p>
         </div>
 
-        {/* Profile Card */}
-        <Card className="overflow-hidden border-border shadow-xl">
+        {/* Profile Card - Variante Rose pâle + Marron */}
+        <Card className="overflow-hidden border-4 border-marron-fonce shadow-2xl hover:shadow-2xl transition mb-8 bg-rose-pale">
           <CardContent className="p-0">
             {/* Profile Image */}
-            <div className="relative h-96 overflow-hidden bg-muted">
+            <div className="relative h-96 overflow-hidden bg-gradient-to-br from-marron-fonce/20 to-jaune-or/20">
               <img
                 src={currentProfile.profilePhotoUrl}
                 alt={currentProfile.name}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-primary-foreground">
-                <h2 className="text-3xl font-bold" style={{ fontFamily: "'Abril Fatface', serif" }}>
+              <div className="absolute inset-0 bg-gradient-to-t from-marron-fonce/80 via-transparent to-transparent"></div>
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-jaune-or">
+                <h2 className="text-3xl font-bold" style={{ fontFamily: 'Abril Fatface' }}>
                   {currentProfile.name}, {currentProfile.age}
                 </h2>
-                <p className="text-sm opacity-90">{currentProfile.location}</p>
+                <p className="text-sm opacity-90">📍 {currentProfile.location}</p>
               </div>
             </div>
 
             {/* Profile Info */}
-            <div className="p-6">
-              <p className="text-foreground/70 mb-6">
+            <div className="p-6 bg-rose-pale">
+              <p className="text-marron-fonce mb-6">
                 {currentProfile.bio}
               </p>
 
@@ -104,8 +110,7 @@ export default function Discover() {
                 <Button
                   size="lg"
                   onClick={handlePass}
-                  variant="outline"
-                  className="flex-1 gap-2"
+                  className="flex-1 gap-2 bg-marron-fonce text-jaune-or hover:bg-jaune-or hover:text-marron-fonce transition"
                 >
                   <X className="w-5 h-5" />
                   Passer
@@ -113,10 +118,10 @@ export default function Discover() {
                 <Button
                   size="lg"
                   onClick={handleLike}
-                  className="flex-1 gap-2 bg-secondary hover:bg-secondary/90 text-primary"
+                  className="flex-1 gap-2 bg-jaune-or text-marron-fonce hover:bg-rose-pale transition"
                   disabled={likeUser.isPending}
                 >
-                  <Heart className="w-5 h-5" />
+                  <Heart className="w-5 h-5 fill-current" />
                   {likeUser.isPending ? "..." : "Aimer"}
                 </Button>
               </div>
@@ -124,9 +129,15 @@ export default function Discover() {
           </CardContent>
         </Card>
 
-        {/* Progress */}
-        <div className="mt-8 text-center text-sm text-foreground/60">
-          Profil {currentIndex + 1} sur {mockProfiles.length}
+        {/* Back Button */}
+        <div className="text-center">
+          <Button
+            onClick={() => navigate("/dashboard")}
+            variant="outline"
+            className="border-marron-fonce text-marron-fonce hover:bg-rose-pale"
+          >
+            Retour au dashboard
+          </Button>
         </div>
       </div>
     </div>
