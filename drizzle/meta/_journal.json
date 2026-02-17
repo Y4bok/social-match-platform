@@ -15,6 +15,13 @@
       "when": 1770990946383,
       "tag": "0001_eminent_sandman",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1771290880890,
+      "tag": "0002_thin_starhawk",
+      "breakpoints": true
     }
   ]
 }

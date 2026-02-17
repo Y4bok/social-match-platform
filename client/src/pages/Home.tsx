@@ -1,219 +1,224 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { Heart, MessageCircle, Shield, Zap } from "lucide-react";
+import { Card } from "@/components/ui/card";
 import { getLoginUrl } from "@/const";
 import { useLocation } from "wouter";
+import { Users, Zap, Shield, TrendingUp, MessageCircle, Award } from "lucide-react";
 
 export default function Home() {
   const { user, isAuthenticated } = useAuth();
   const [, navigate] = useLocation();
 
+  if (isAuthenticated) {
+    navigate("/dashboard", { replace: true });
+    return null;
+  }
+
   return (
-    <div className="min-h-screen flex flex-col bg-beige-clair">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-beige-clair border-b border-rose-pale shadow-sm">
-        <div className="container flex items-center justify-between h-16">
-          <div className="flex items-center gap-2">
-            <Heart className="w-8 h-8 fill-marron-fonce text-marron-fonce" />
-            <h1 className="text-2xl font-bold text-marron-fonce" style={{ fontFamily: 'Abril Fatface' }}>
-              SocialMatch
-            </h1>
+    <div className="min-h-screen bg-gradient-to-br from-beige-clair via-rose-pale to-beige-clair">
+      {/* Navigation */}
+      <nav className="bg-marron-fonce text-jaune-or shadow-lg border-b-4 border-jaune-or">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <div className="text-3xl font-bold" style={{ fontFamily: 'Abril Fatface' }}>
+            ❤️ Claudine
           </div>
-          <nav className="hidden md:flex items-center gap-8">
-            <a href="/" className="text-marron-fonce hover:text-jaune-or transition">Accueil</a>
-            <a href="/cgv" className="text-marron-fonce hover:text-jaune-or transition">CGV</a>
-            <a href="/cgu" className="text-marron-fonce hover:text-jaune-or transition">CGU</a>
-            <a href="/contact" className="text-marron-fonce hover:text-jaune-or transition">Contact</a>
-          </nav>
-          <div className="flex items-center gap-4">
-            {isAuthenticated ? (
-              <>
-                <Button
-                  variant="outline"
-                  onClick={() => navigate("/dashboard")}
-                  className="border-marron-fonce text-marron-fonce hover:bg-rose-pale"
-                >
-                  Dashboard
-                </Button>
-              </>
-            ) : (
-              <Button
-                onClick={() => window.location.href = getLoginUrl()}
-                className="bg-marron-fonce text-jaune-or hover:bg-rose-pale hover:text-marron-fonce transition"
-              >
-                Se connecter
-              </Button>
-            )}
+          <div className="flex gap-4">
+            <a href="/cgv" className="hover:text-white transition">CGV</a>
+            <a href="/cgu" className="hover:text-white transition">CGU</a>
+            <a href="/contact" className="hover:text-white transition">Contact</a>
+            <a href={getLoginUrl()} className="bg-jaune-or text-marron-fonce px-4 py-2 rounded-lg font-bold hover:bg-white transition">
+              Se connecter
+            </a>
           </div>
         </div>
-      </header>
+      </nav>
 
-      {/* Hero Section - Variante 1: Beige + Noir + Jaune */}
-      <section className="py-20 px-4 bg-gradient-to-br from-beige-clair to-rose-pale">
-        <div className="container max-w-4xl mx-auto text-center">
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-marron-fonce" style={{ fontFamily: 'Abril Fatface' }}>
-            Trouvez votre <span className="text-jaune-or">connexion</span> parfaite
-          </h2>
-          <p className="text-xl text-marron-fonce mb-8 font-nunito">
-            Une plateforme moderne et sécurisée pour rencontrer des personnes partageant vos intérêts. 
-            Authentification 2FA, messagerie instantanée et matching intelligent.
+      {/* Hero Section */}
+      <section className="py-20 px-4">
+        <div className="container mx-auto text-center">
+          <h1 
+            className="text-6xl font-bold text-marron-fonce mb-4"
+            style={{ fontFamily: 'Abril Fatface' }}
+          >
+            Claudine
+          </h1>
+          <p className="text-3xl text-marron-fonce mb-6" style={{ fontFamily: 'Abril Fatface' }}>
+            Le réseau professionnel de la <span className="text-jaune-or">Distribution</span>
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
+          <p className="text-xl text-marron-fonce mb-8 max-w-2xl mx-auto">
+            Connectez-vous avec les experts de la distribution. Partagez vos connaissances, développez votre réseau professionnel et trouvez les opportunités qui vous correspondent.
+          </p>
+          
+          <div className="flex gap-4 justify-center mb-12">
+            <Button 
+              className="bg-marron-fonce text-jaune-or hover:bg-jaune-or hover:text-marron-fonce text-lg px-8 py-6"
               onClick={() => window.location.href = getLoginUrl()}
-              className="bg-marron-fonce text-jaune-or hover:bg-rose-pale hover:text-marron-fonce px-8 py-6 text-lg transition"
             >
-              Commencer à découvrir
+              Commencer gratuitement
             </Button>
-            <Button
+            <Button 
               variant="outline"
-              onClick={() => navigate("/contact")}
-              className="border-2 border-marron-fonce text-marron-fonce hover:bg-rose-pale px-8 py-6 text-lg"
+              className="border-marron-fonce text-marron-fonce hover:bg-marron-fonce hover:text-jaune-or text-lg px-8 py-6"
+              onClick={() => document.getElementById("features")?.scrollIntoView({ behavior: "smooth" })}
             >
               En savoir plus
             </Button>
           </div>
 
-          {/* Stats - Variante 2: Marron + Jaune */}
-          <div className="grid grid-cols-3 gap-4 mt-16">
-            <div className="bg-marron-fonce text-jaune-or p-6 rounded-lg">
-              <div className="text-3xl font-bold mb-2">10K+</div>
-              <div className="text-sm">Utilisateurs actifs</div>
-            </div>
-            <div className="bg-marron-fonce text-jaune-or p-6 rounded-lg">
-              <div className="text-3xl font-bold mb-2">50K+</div>
-              <div className="text-sm">Matchs créés</div>
-            </div>
-            <div className="bg-marron-fonce text-jaune-or p-6 rounded-lg">
-              <div className="text-3xl font-bold mb-2">99%</div>
-              <div className="text-sm">Satisfaction</div>
-            </div>
+          {/* Stats */}
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            <Card className="bg-marron-fonce text-jaune-or p-6 border-2 border-jaune-or">
+              <div className="text-4xl font-bold mb-2">10K+</div>
+              <p className="text-lg">Professionnels actifs</p>
+            </Card>
+            <Card className="bg-jaune-or text-marron-fonce p-6 border-2 border-marron-fonce">
+              <div className="text-4xl font-bold mb-2">50K+</div>
+              <p className="text-lg">Connexions établies</p>
+            </Card>
+            <Card className="bg-rose-pale text-marron-fonce p-6 border-2 border-marron-fonce">
+              <div className="text-4xl font-bold mb-2">99%</div>
+              <p className="text-lg">Satisfaction utilisateurs</p>
+            </Card>
           </div>
         </div>
       </section>
 
-      {/* Features Section - Variante 3: Rose pâle + Marron */}
-      <section className="py-20 px-4 bg-beige-clair">
-        <div className="container max-w-5xl mx-auto">
-          <h3 className="text-4xl font-bold text-center mb-16 text-marron-fonce" style={{ fontFamily: 'Abril Fatface' }}>
-            Nos Fonctionnalités
-          </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* Features Section */}
+      <section id="features" className="py-20 px-4 bg-marron-fonce/5">
+        <div className="container mx-auto">
+          <h2 
+            className="text-5xl font-bold text-marron-fonce text-center mb-16"
+            style={{ fontFamily: 'Abril Fatface' }}
+          >
+            Pourquoi choisir Claudine ?
+          </h2>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Feature 1 */}
-            <div className="bg-rose-pale p-6 rounded-lg border-2 border-marron-fonce hover:shadow-lg transition">
-              <Heart className="w-12 h-12 text-marron-fonce mb-4" />
-              <h4 className="text-xl font-bold text-marron-fonce mb-2" style={{ fontFamily: 'Abril Fatface' }}>
-                Matching Intelligent
-              </h4>
-              <p className="text-marron-fonce text-sm">
-                Trouvez votre personne idéale avec notre système de matching avancé
+            <Card className="bg-white border-2 border-marron-fonce p-6 hover:shadow-xl transition">
+              <Users className="w-12 h-12 text-marron-fonce mb-4" />
+              <h3 className="text-2xl font-bold text-marron-fonce mb-2" style={{ fontFamily: 'Abril Fatface' }}>
+                Réseau Professionnel
+              </h3>
+              <p className="text-marron-fonce">
+                Connectez-vous avec des milliers de professionnels de la distribution. Élargissez votre réseau et trouvez les bons contacts.
               </p>
-            </div>
+            </Card>
 
             {/* Feature 2 */}
-            <div className="bg-rose-pale p-6 rounded-lg border-2 border-marron-fonce hover:shadow-lg transition">
+            <Card className="bg-white border-2 border-marron-fonce p-6 hover:shadow-xl transition">
               <MessageCircle className="w-12 h-12 text-marron-fonce mb-4" />
-              <h4 className="text-xl font-bold text-marron-fonce mb-2" style={{ fontFamily: 'Abril Fatface' }}>
-                Chat en Temps Réel
-              </h4>
-              <p className="text-marron-fonce text-sm">
-                Communiquez instantanément avec vos matchs
+              <h3 className="text-2xl font-bold text-marron-fonce mb-2" style={{ fontFamily: 'Abril Fatface' }}>
+                Partage de Contenu
+              </h3>
+              <p className="text-marron-fonce">
+                Publiez vos articles, insights et actualités. Engagez-vous avec la communauté et devenez un leader d'opinion.
               </p>
-            </div>
+            </Card>
 
             {/* Feature 3 */}
-            <div className="bg-rose-pale p-6 rounded-lg border-2 border-marron-fonce hover:shadow-lg transition">
-              <Shield className="w-12 h-12 text-marron-fonce mb-4" />
-              <h4 className="text-xl font-bold text-marron-fonce mb-2" style={{ fontFamily: 'Abril Fatface' }}>
-                Sécurité Maximale
-              </h4>
-              <p className="text-marron-fonce text-sm">
-                Authentification 2FA et protection de vos données
+            <Card className="bg-white border-2 border-marron-fonce p-6 hover:shadow-xl transition">
+              <Zap className="w-12 h-12 text-marron-fonce mb-4" />
+              <h3 className="text-2xl font-bold text-marron-fonce mb-2" style={{ fontFamily: 'Abril Fatface' }}>
+                Opportunités
+              </h3>
+              <p className="text-marron-fonce">
+                Découvrez des offres d'emploi, des partenariats et des projets exclusifs pour les membres de Claudine.
               </p>
-            </div>
+            </Card>
 
             {/* Feature 4 */}
-            <div className="bg-rose-pale p-6 rounded-lg border-2 border-marron-fonce hover:shadow-lg transition">
-              <Zap className="w-12 h-12 text-marron-fonce mb-4" />
-              <h4 className="text-xl font-bold text-marron-fonce mb-2" style={{ fontFamily: 'Abril Fatface' }}>
-                Expérience Rapide
-              </h4>
-              <p className="text-marron-fonce text-sm">
-                Interface fluide et intuitive pour une meilleure expérience
+            <Card className="bg-white border-2 border-marron-fonce p-6 hover:shadow-xl transition">
+              <TrendingUp className="w-12 h-12 text-marron-fonce mb-4" />
+              <h3 className="text-2xl font-bold text-marron-fonce mb-2" style={{ fontFamily: 'Abril Fatface' }}>
+                Croissance Professionnelle
+              </h3>
+              <p className="text-marron-fonce">
+                Améliorez vos compétences, restez informé des tendances et développez votre expertise dans la distribution.
               </p>
-            </div>
+            </Card>
+
+            {/* Feature 5 */}
+            <Card className="bg-white border-2 border-marron-fonce p-6 hover:shadow-xl transition">
+              <Shield className="w-12 h-12 text-marron-fonce mb-4" />
+              <h3 className="text-2xl font-bold text-marron-fonce mb-2" style={{ fontFamily: 'Abril Fatface' }}>
+                Sécurité & Confidentialité
+              </h3>
+              <p className="text-marron-fonce">
+                Vos données sont protégées avec les plus hauts standards de sécurité. Contrôlez votre vie privée.
+              </p>
+            </Card>
+
+            {/* Feature 6 */}
+            <Card className="bg-white border-2 border-marron-fonce p-6 hover:shadow-xl transition">
+              <Award className="w-12 h-12 text-marron-fonce mb-4" />
+              <h3 className="text-2xl font-bold text-marron-fonce mb-2" style={{ fontFamily: 'Abril Fatface' }}>
+                Communautés Thématiques
+              </h3>
+              <p className="text-marron-fonce">
+                Rejoignez des groupes spécialisés par secteur, région ou domaine d'expertise pour des discussions ciblées.
+              </p>
+            </Card>
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section - Variante 4: Marron + Jaune */}
-      <section className="py-20 px-4 bg-gradient-to-r from-marron-fonce to-marron-fonce">
-        <div className="container max-w-4xl mx-auto">
-          <h3 className="text-4xl font-bold text-center mb-16 text-jaune-or" style={{ fontFamily: 'Abril Fatface' }}>
-            Témoignages
-          </h3>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-jaune-or p-8 rounded-lg">
-              <p className="text-marron-fonce mb-4 italic">
-                "SocialMatch m'a permis de rencontrer quelqu'un d'incroyable. L'interface est simple et sécurisée!"
-              </p>
-              <div className="font-bold text-marron-fonce">Marie D.</div>
-            </div>
-            <div className="bg-jaune-or p-8 rounded-lg">
-              <p className="text-marron-fonce mb-4 italic">
-                "J'aime la sécurité avec la 2FA et la messagerie instantanée. Vraiment une plateforme de qualité."
-              </p>
-              <div className="font-bold text-marron-fonce">Jean P.</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section - Variante 5: Beige + Marron + Jaune */}
-      <section className="py-20 px-4 bg-beige-clair border-t-4 border-marron-fonce">
-        <div className="container max-w-3xl mx-auto text-center">
-          <h3 className="text-4xl font-bold mb-6 text-marron-fonce" style={{ fontFamily: 'Abril Fatface' }}>
-            Prêt à trouver votre match ?
-          </h3>
-          <p className="text-lg text-marron-fonce mb-8">
-            Rejoignez des milliers d'utilisateurs qui ont déjà trouvé leur connexion parfaite.
-          </p>
-          <Button
-            onClick={() => window.location.href = getLoginUrl()}
-            className="bg-marron-fonce text-jaune-or hover:bg-rose-pale hover:text-marron-fonce px-12 py-6 text-lg transition"
+      {/* CTA Section */}
+      <section className="py-20 px-4 bg-gradient-to-r from-marron-fonce to-marron-fonce/80">
+        <div className="container mx-auto text-center">
+          <h2 
+            className="text-5xl font-bold text-jaune-or mb-6"
+            style={{ fontFamily: 'Abril Fatface' }}
           >
-            Créer mon compte maintenant
+            Prêt à rejoindre Claudine ?
+          </h2>
+          <p className="text-xl text-jaune-or mb-8">
+            Inscrivez-vous gratuitement et commencez à développer votre réseau professionnel dès aujourd'hui.
+          </p>
+          <Button 
+            className="bg-jaune-or text-marron-fonce hover:bg-white hover:text-marron-fonce text-lg px-8 py-6 font-bold"
+            onClick={() => window.location.href = getLoginUrl()}
+          >
+            S'inscrire maintenant
           </Button>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-marron-fonce text-jaune-or py-12 px-4">
-        <div className="container">
-          <div className="grid md:grid-cols-3 gap-8 mb-8">
+      <footer className="bg-marron-fonce text-jaune-or py-8 border-t-4 border-jaune-or">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <h4 className="font-bold mb-4" style={{ fontFamily: 'Abril Fatface' }}>SocialMatch</h4>
-              <p className="text-sm">Votre plateforme de rencontre sécurisée et moderne.</p>
+              <h4 className="font-bold mb-4" style={{ fontFamily: 'Abril Fatface' }}>Claudine</h4>
+              <p>Le réseau professionnel de la distribution</p>
             </div>
             <div>
-              <h4 className="font-bold mb-4" style={{ fontFamily: 'Abril Fatface' }}>Liens</h4>
-              <ul className="text-sm space-y-2">
-                <li><a href="/cgv" className="hover:underline">CGV</a></li>
-                <li><a href="/cgu" className="hover:underline">CGU</a></li>
-                <li><a href="/contact" className="hover:underline">Contact</a></li>
+              <h4 className="font-bold mb-4">Liens rapides</h4>
+              <ul className="space-y-2">
+                <li><a href="/cgv" className="hover:text-white">CGV</a></li>
+                <li><a href="/cgu" className="hover:text-white">CGU</a></li>
+                <li><a href="/contact" className="hover:text-white">Contact</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-4" style={{ fontFamily: 'Abril Fatface' }}>Suivez-nous</h4>
-              <div className="flex gap-4 text-sm">
-                <a href="#" className="hover:underline">Facebook</a>
-                <a href="#" className="hover:underline">Twitter</a>
-                <a href="#" className="hover:underline">Instagram</a>
-              </div>
+              <h4 className="font-bold mb-4">Ressources</h4>
+              <ul className="space-y-2">
+                <li><a href="#" className="hover:text-white">Blog</a></li>
+                <li><a href="#" className="hover:text-white">Aide</a></li>
+                <li><a href="#" className="hover:text-white">Communauté</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4">Suivez-nous</h4>
+              <ul className="space-y-2">
+                <li><a href="#" className="hover:text-white">LinkedIn</a></li>
+                <li><a href="#" className="hover:text-white">Twitter</a></li>
+                <li><a href="#" className="hover:text-white">Facebook</a></li>
+              </ul>
             </div>
           </div>
-          <div className="border-t border-jaune-or pt-8 text-center text-sm">
-            <p>&copy; 2026 SocialMatch. Tous droits réservés.</p>
+          <div className="border-t border-jaune-or pt-8 text-center">
+            <p>&copy; 2026 Claudine. Tous droits réservés.</p>
           </div>
         </div>
       </footer>

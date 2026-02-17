@@ -1,118 +1,69 @@
-# SocialMatch Platform - TODO
+# Claudine - Média Social Professionnel pour la Distribution
 
-## Phase 1: Architecture & Base de Données
-- [x] Concevoir et implémenter le schéma de base de données complet
-  - [x] Tables utilisateurs (profils, préférences, statut)
-  - [x] Tables d'authentification (sessions, tokens 2FA)
-  - [x] Tables de messagerie (conversations, messages)
-  - [x] Tables de matching (likes, matches, accords)
-  - [x] Tables de logs (audit trail)
-  - [x] Tables de captcha (validation)
+## Phase 1: Base de Données - Fonctionnalités Média Social
+- [ ] Ajouter les tables pour posts/articles
+- [ ] Ajouter les tables pour likes et commentaires
+- [ ] Ajouter les tables pour follow/followers
+- [ ] Ajouter les tables pour groupes/communautés
+- [ ] Ajouter les tables pour notifications
+- [ ] Ajouter les champs professionnels aux profils (expérience, compétences, secteur)
 
-## Phase 2: Interface Utilisateur - Landing Page & Vitrine
-- [x] Concevoir et implémenter la landing page moderne
-  - [x] Hero section avec CTA
-  - [x] Sections de features
-  - [x] Testimonials/Social proof
-  - [x] Pricing (si applicable)
-  - [x] Footer avec liens
-- [x] Créer la page de vitrine/présentation
-- [x] Navigation globale (header/menu)
-- [x] Design système cohérent (couleurs, typographie, espacements)
+## Phase 2: Branding & Renommage
+- [ ] Renommer l'application en "Claudine"
+- [ ] Mettre à jour le logo et favicon
+- [ ] Refondre la landing page avec positionnement B2B (Distribution)
+- [ ] Mettre à jour les textes et descriptions
+- [ ] Créer des visuels professionnels
 
-## Phase 3: Authentification & Sécurité
-- [x] Implémenter l'authentification Manus OAuth
-- [x] Ajouter la 2FA (Two-Factor Authentication)
-  - [x] Génération de codes TOTP
-  - [x] Vérification des codes
-  - [x] Backup codes
-- [ ] Implémenter le captcha (reCAPTCHA ou alternative)
-- [x] Système de logs d'authentification
-- [x] Gestion des sessions sécurisées
+## Phase 3: Feed d'Actualités
+- [ ] Créer la page Feed avec posts
+- [ ] Implémenter la création de posts
+- [ ] Ajouter le système de partage de contenu
+- [ ] Implémenter le tri et filtrage des posts
+- [ ] Ajouter les images/vidéos aux posts
 
-## Phase 4: Profils & Onboarding
-- [x] Page de création de profil utilisateur
-  - [x] Formulaire d'inscription complet
-  - [x] Upload de photo de profil
-  - [x] Préférences de matching
-  - [x] Bio et description
-- [x] Page d'édition de profil
-- [x] Validation des données utilisateur
+## Phase 4: Interactions Sociales
+- [ ] Système de likes sur les posts
+- [ ] Système de commentaires
+- [ ] Réponses aux commentaires
+- [ ] Notifications de likes/commentaires
+- [ ] Compteurs d'engagement
 
-## Phase 5: Système de Matching
-- [x] Implémenter la logique de "like" (swipe/like)
-- [x] Système de matching bidirectionnel
-- [x] Page de découverte (cartes de profils)
-- [ ] Historique des likes/matches
-- [ ] Notifications de nouveaux matches
+## Phase 5: Réseau de Contacts
+- [ ] Système de follow/followers
+- [ ] Page "Personnes à suivre"
+- [ ] Affichage du réseau
+- [ ] Suggestions de contacts
+- [ ] Notifications de nouveaux followers
 
-## Phase 6: Messagerie Instantanée
-- [ ] Architecture WebSocket pour messages temps réel
-- [x] Page de conversations
-- [x] Interface de chat
-- [ ] Historique des messages
-- [ ] Notifications de nouveaux messages
-- [ ] Indicateurs de présence en ligne
+## Phase 6: Profils Professionnels
+- [ ] Ajouter expérience professionnelle
+- [ ] Ajouter compétences
+- [ ] Ajouter secteur d'activité
+- [ ] Ajouter entreprise actuelle
+- [ ] Afficher les posts de l'utilisateur
 
-## Phase 7: Accord & Consentement
-- [x] Système d'accord/contrat entre participants
-- [ ] Page de conditions d'utilisation
-- [ ] Consentement RGPD
-- [ ] Signature électronique (si nécessaire)
-- [ ] Historique des accords
+## Phase 7: Groupes & Communautés
+- [ ] Créer les pages de groupes
+- [ ] Système de création de groupes
+- [ ] Adhésion aux groupes
+- [ ] Feed des groupes
+- [ ] Modération des groupes
 
-## Phase 8: Formulaire de Contact
-- [x] Page de contact
-- [x] Formulaire avec validation
-- [x] Intégration avec base de données
-- [ ] Notification au propriétaire
-- [ ] Réponse automatique à l'utilisateur
+## Phase 8: Notifications & Recommandations
+- [ ] Système de notifications d'activité
+- [ ] Page de notifications
+- [ ] Recommandations de contacts
+- [ ] Recommandations de groupes
+- [ ] Recommandations de posts pertinents
 
-## Phase 9: Dashboard & Gestion
-- [ ] Dashboard utilisateur
-  - [ ] Statistiques personnelles
-  - [ ] Gestion des préférences
-  - [ ] Historique d'activité
-- [ ] Admin panel (si nécessaire)
-- [ ] Gestion des utilisateurs
-
-## Phase 10: Tests & Optimisation
-- [ ] Tests unitaires (Vitest)
+## Phase 9: Tests & Validation
+- [ ] Tests unitaires pour toutes les fonctionnalités
 - [ ] Tests d'intégration
-- [ ] Tests de sécurité (2FA, captcha, authentification)
-- [ ] Optimisation des performances
-- [ ] Responsive design (mobile, tablet, desktop)
+- [ ] Tests de performance
+- [ ] Tests d'UX
 
-## Phase 11: Déploiement & Finalisation
-- [ ] Configuration de production
+## Phase 10: Déploiement
 - [ ] Checkpoint final
 - [ ] Documentation
-- [ ] Présentation au client
-
-
-## Phase 12: Palette de Couleurs Claudine
-- [x] Mettre à jour la palette CSS avec les couleurs Claudine
-  - [x] Beige/Crème (#F5E6D3) comme couleur de fond
-  - [x] Marron foncé (#5C2E3A) comme accent principal
-  - [x] Noir (#1A1A1A) pour les contrastes
-- [x] Appliquer les couleurs à toutes les pages
-- [x] Mettre à jour les boutons et éléments interactifs
-- [x] Tester la cohérence visuelle sur tous les appareils
-
-## Phase 13: Images de Fond et Visuels
-- [x] Générer des images de fond avec la palette couleur (beige/jaune/marron)
-- [ ] Ajouter des images de fond à la landing page
-- [ ] Ajouter des images de fond aux autres pages
-- [ ] Intégrer les images dans les composants React
-
-## Phase 14: Pages Légales
-- [x] Créer la page CGV (Conditions Générales de Vente)
-- [x] Créer la page CGU (Conditions Générales d'Utilisation)
-- [ ] Ajouter les liens dans le footer
-- [x] Ajouter les routes dans App.tsx
-
-## Phase 15: Architecture du Site
-- [x] Documenter la proposition d'architecture complète
-- [ ] Créer un diagramme de navigation
-- [x] Définir la structure des pages
-- [x] Documenter les flux utilisateur
+- [ ] Guide de déploiement Azure

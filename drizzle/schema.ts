@@ -184,3 +184,115 @@ export const captchaLogs = mysqlTable("captcha_logs", {
 
 export type CaptchaLog = typeof captchaLogs.$inferSelect;
 export type InsertCaptchaLog = typeof captchaLogs.$inferInsert;
+
+/**
+ * Posts/Articles for the social feed
+ */
+export const posts = mysqlTable("posts", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  content: text("content").notNull(),
+  imageUrl: text("imageUrl"),
+  videoUrl: text("videoUrl"),
+  likesCount: int("likesCount").default(0),
+  commentsCount: int("commentsCount").default(0),
+  sharesCount: int("sharesCount").default(0),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Post = typeof posts.$inferSelect;
+export type InsertPost = typeof posts.$inferInsert;
+
+/**
+ * Likes on posts
+ */
+export const postLikes = mysqlTable("post_likes", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  postId: int("postId").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type PostLike = typeof postLikes.$inferSelect;
+export type InsertPostLike = typeof postLikes.$inferInsert;
+
+/**
+ * Comments on posts
+ */
+export const comments = mysqlTable("comments", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  postId: int("postId").notNull(),
+  parentCommentId: int("parentCommentId"),
+  content: text("content").notNull(),
+  likesCount: int("likesCount").default(0),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Comment = typeof comments.$inferSelect;
+export type InsertComment = typeof comments.$inferInsert;
+
+/**
+ * Followers/Following relationships
+ */
+export const followers = mysqlTable("followers", {
+  id: int("id").autoincrement().primaryKey(),
+  followerId: int("followerId").notNull(),
+  followingId: int("followingId").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Follower = typeof followers.$inferSelect;
+export type InsertFollower = typeof followers.$inferInsert;
+
+/**
+ * Groups/Communities
+ */
+export const groups = mysqlTable("groups", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  description: text("description"),
+  imageUrl: text("imageUrl"),
+  creatorId: int("creatorId").notNull(),
+  category: varchar("category", { length: 100 }),
+  membersCount: int("membersCount").default(1),
+  isPrivate: boolean("isPrivate").default(false),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Group = typeof groups.$inferSelect;
+export type InsertGroup = typeof groups.$inferInsert;
+
+/**
+ * Group memberships
+ */
+export const groupMembers = mysqlTable("group_members", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  groupId: int("groupId").notNull(),
+  role: mysqlEnum("role", ["member", "moderator", "admin"]).default("member"),
+  joinedAt: timestamp("joinedAt").defaultNow().notNull(),
+});
+
+export type GroupMember = typeof groupMembers.$inferSelect;
+export type InsertGroupMember = typeof groupMembers.$inferInsert;
+
+/**
+ * Notifications for user activity
+ */
+export const notifications = mysqlTable("notifications", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  type: varchar("type", { length: 50 }).notNull(),
+  actorId: int("actorId").notNull(),
+  targetId: int("targetId"),
+  message: text("message"),
+  isRead: boolean("isRead").default(false),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Notification = typeof notifications.$inferSelect;
+export type InsertNotification = typeof notifications.$inferInsert;
