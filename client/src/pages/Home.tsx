@@ -1,162 +1,139 @@
-import { useAuth } from "@/_core/hooks/useAuth";
+import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { getLoginUrl } from "@/const";
 import { useLocation } from "wouter";
-import { Users, Zap, Shield, TrendingUp, MessageCircle, Award } from "lucide-react";
+import { Users, Zap, Shield, TrendingUp, MessageCircle, Award, ArrowRight } from "lucide-react";
+import Layout from "@/components/Layout";
 
 export default function Home() {
   const { user, isAuthenticated } = useAuth();
   const [, navigate] = useLocation();
 
   if (isAuthenticated) {
-    navigate("/dashboard", { replace: true });
+    navigate("/feed", { replace: true });
     return null;
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-beige-clair via-rose-pale to-beige-clair">
-      {/* Navigation */}
-      <nav className="bg-marron-fonce text-jaune-or shadow-lg border-b-4 border-jaune-or">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="text-3xl font-bold" style={{ fontFamily: 'Abril Fatface' }}>
-            ❤️ Claudine
-          </div>
-          <div className="flex gap-4">
-            <a href="/cgv" className="hover:text-white transition">CGV</a>
-            <a href="/cgu" className="hover:text-white transition">CGU</a>
-            <a href="/contact" className="hover:text-white transition">Contact</a>
-            <a href={getLoginUrl()} className="bg-jaune-or text-marron-fonce px-4 py-2 rounded-lg font-bold hover:bg-white transition">
-              Se connecter
-            </a>
-          </div>
-        </div>
-      </nav>
-
+    <Layout>
       {/* Hero Section */}
-      <section className="py-20 px-4">
+      <section className="py-20 px-4 bg-gradient-to-br from-[#F5E6D3] via-[#F3E8EE] to-[#F5E6D3]">
         <div className="container mx-auto text-center">
-          <h1 
-            className="text-6xl font-bold text-marron-fonce mb-4"
-            style={{ fontFamily: 'Abril Fatface' }}
+          <h1
+            className="text-5xl md:text-7xl font-bold text-[#5C0029] mb-6"
+            style={{ fontFamily: "'Abril Fatface', serif" }}
           >
-            Claudine
+            Bienvenue sur Claudine
           </h1>
-          <p className="text-3xl text-marron-fonce mb-6" style={{ fontFamily: 'Abril Fatface' }}>
-            Le réseau professionnel de la <span className="text-jaune-or">Distribution</span>
+          <p className="text-2xl md:text-3xl text-[#5C0029] mb-6" style={{ fontFamily: "'Abril Fatface', serif" }}>
+            Le réseau professionnel de la <span className="text-[#F2ED6F] bg-[#5C0029] px-3 py-1 rounded">Distribution</span>
           </p>
-          <p className="text-xl text-marron-fonce mb-8 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-700 mb-10 max-w-3xl mx-auto leading-relaxed">
             Connectez-vous avec les experts de la distribution. Partagez vos connaissances, développez votre réseau professionnel et trouvez les opportunités qui vous correspondent.
           </p>
-          
-          <div className="flex gap-4 justify-center mb-12">
-            <Button 
-              className="bg-marron-fonce text-jaune-or hover:bg-jaune-or hover:text-marron-fonce text-lg px-8 py-6"
-              onClick={() => window.location.href = getLoginUrl()}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button
+              onClick={() => {
+                window.location.href = getLoginUrl();
+              }}
+              size="lg"
+              className="bg-[#5C0029] hover:bg-[#5C0029]/90 text-white text-lg px-8 py-6"
             >
-              Commencer gratuitement
+              Rejoindre Claudine
+              <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
-            <Button 
+            <Button
+              onClick={() => navigate("/contact")}
+              size="lg"
               variant="outline"
-              className="border-marron-fonce text-marron-fonce hover:bg-marron-fonce hover:text-jaune-or text-lg px-8 py-6"
-              onClick={() => document.getElementById("features")?.scrollIntoView({ behavior: "smooth" })}
+              className="border-[#5C0029] text-[#5C0029] hover:bg-[#5C0029] hover:text-white text-lg px-8 py-6"
             >
               En savoir plus
             </Button>
-          </div>
-
-          {/* Stats */}
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <Card className="bg-marron-fonce text-jaune-or p-6 border-2 border-jaune-or">
-              <div className="text-4xl font-bold mb-2">10K+</div>
-              <p className="text-lg">Professionnels actifs</p>
-            </Card>
-            <Card className="bg-jaune-or text-marron-fonce p-6 border-2 border-marron-fonce">
-              <div className="text-4xl font-bold mb-2">50K+</div>
-              <p className="text-lg">Connexions établies</p>
-            </Card>
-            <Card className="bg-rose-pale text-marron-fonce p-6 border-2 border-marron-fonce">
-              <div className="text-4xl font-bold mb-2">99%</div>
-              <p className="text-lg">Satisfaction utilisateurs</p>
-            </Card>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 px-4 bg-marron-fonce/5">
+      <section className="py-16 px-4 bg-white">
         <div className="container mx-auto">
-          <h2 
-            className="text-5xl font-bold text-marron-fonce text-center mb-16"
-            style={{ fontFamily: 'Abril Fatface' }}
+          <h2
+            className="text-4xl font-bold text-center text-[#5C0029] mb-12"
+            style={{ fontFamily: "'Abril Fatface', serif" }}
           >
-            Pourquoi choisir Claudine ?
+            Pourquoi Claudine ?
           </h2>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <Card className="bg-white border-2 border-marron-fonce p-6 hover:shadow-xl transition">
-              <Users className="w-12 h-12 text-marron-fonce mb-4" />
-              <h3 className="text-2xl font-bold text-marron-fonce mb-2" style={{ fontFamily: 'Abril Fatface' }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <Card className="p-6 hover:shadow-xl transition-shadow border-[#F3E8EE]">
+              <div className="w-14 h-14 rounded-full bg-[#5C0029] flex items-center justify-center mb-4">
+                <Users className="w-7 h-7 text-[#F2ED6F]" />
+              </div>
+              <h3 className="text-xl font-bold text-[#5C0029] mb-3" style={{ fontFamily: "'Abril Fatface', serif" }}>
                 Réseau Professionnel
               </h3>
-              <p className="text-marron-fonce">
-                Connectez-vous avec des milliers de professionnels de la distribution. Élargissez votre réseau et trouvez les bons contacts.
+              <p className="text-gray-700 leading-relaxed">
+                Connectez-vous avec des milliers de professionnels de la distribution. Élargissez votre réseau et créez des opportunités.
               </p>
             </Card>
 
-            {/* Feature 2 */}
-            <Card className="bg-white border-2 border-marron-fonce p-6 hover:shadow-xl transition">
-              <MessageCircle className="w-12 h-12 text-marron-fonce mb-4" />
-              <h3 className="text-2xl font-bold text-marron-fonce mb-2" style={{ fontFamily: 'Abril Fatface' }}>
-                Partage de Contenu
+            <Card className="p-6 hover:shadow-xl transition-shadow border-[#F3E8EE]">
+              <div className="w-14 h-14 rounded-full bg-[#5C0029] flex items-center justify-center mb-4">
+                <MessageCircle className="w-7 h-7 text-[#F2ED6F]" />
+              </div>
+              <h3 className="text-xl font-bold text-[#5C0029] mb-3" style={{ fontFamily: "'Abril Fatface', serif" }}>
+                Partage de Connaissances
               </h3>
-              <p className="text-marron-fonce">
-                Publiez vos articles, insights et actualités. Engagez-vous avec la communauté et devenez un leader d'opinion.
+              <p className="text-gray-700 leading-relaxed">
+                Partagez vos expériences, posez des questions et apprenez des meilleurs experts du secteur.
               </p>
             </Card>
 
-            {/* Feature 3 */}
-            <Card className="bg-white border-2 border-marron-fonce p-6 hover:shadow-xl transition">
-              <Zap className="w-12 h-12 text-marron-fonce mb-4" />
-              <h3 className="text-2xl font-bold text-marron-fonce mb-2" style={{ fontFamily: 'Abril Fatface' }}>
-                Opportunités
+            <Card className="p-6 hover:shadow-xl transition-shadow border-[#F3E8EE]">
+              <div className="w-14 h-14 rounded-full bg-[#5C0029] flex items-center justify-center mb-4">
+                <TrendingUp className="w-7 h-7 text-[#F2ED6F]" />
+              </div>
+              <h3 className="text-xl font-bold text-[#5C0029] mb-3" style={{ fontFamily: "'Abril Fatface', serif" }}>
+                Opportunités de Carrière
               </h3>
-              <p className="text-marron-fonce">
-                Découvrez des offres d'emploi, des partenariats et des projets exclusifs pour les membres de Claudine.
+              <p className="text-gray-700 leading-relaxed">
+                Découvrez les dernières opportunités professionnelles et faites évoluer votre carrière dans la distribution.
               </p>
             </Card>
 
-            {/* Feature 4 */}
-            <Card className="bg-white border-2 border-marron-fonce p-6 hover:shadow-xl transition">
-              <TrendingUp className="w-12 h-12 text-marron-fonce mb-4" />
-              <h3 className="text-2xl font-bold text-marron-fonce mb-2" style={{ fontFamily: 'Abril Fatface' }}>
-                Croissance Professionnelle
+            <Card className="p-6 hover:shadow-xl transition-shadow border-[#F3E8EE]">
+              <div className="w-14 h-14 rounded-full bg-[#5C0029] flex items-center justify-center mb-4">
+                <Shield className="w-7 h-7 text-[#F2ED6F]" />
+              </div>
+              <h3 className="text-xl font-bold text-[#5C0029] mb-3" style={{ fontFamily: "'Abril Fatface', serif" }}>
+                Sécurité et Confidentialité
               </h3>
-              <p className="text-marron-fonce">
-                Améliorez vos compétences, restez informé des tendances et développez votre expertise dans la distribution.
+              <p className="text-gray-700 leading-relaxed">
+                Vos données sont protégées. Nous respectons votre vie privée et garantissons la sécurité de vos informations.
               </p>
             </Card>
 
-            {/* Feature 5 */}
-            <Card className="bg-white border-2 border-marron-fonce p-6 hover:shadow-xl transition">
-              <Shield className="w-12 h-12 text-marron-fonce mb-4" />
-              <h3 className="text-2xl font-bold text-marron-fonce mb-2" style={{ fontFamily: 'Abril Fatface' }}>
-                Sécurité & Confidentialité
+            <Card className="p-6 hover:shadow-xl transition-shadow border-[#F3E8EE]">
+              <div className="w-14 h-14 rounded-full bg-[#5C0029] flex items-center justify-center mb-4">
+                <Zap className="w-7 h-7 text-[#F2ED6F]" />
+              </div>
+              <h3 className="text-xl font-bold text-[#5C0029] mb-3" style={{ fontFamily: "'Abril Fatface', serif" }}>
+                Groupes Thématiques
               </h3>
-              <p className="text-marron-fonce">
-                Vos données sont protégées avec les plus hauts standards de sécurité. Contrôlez votre vie privée.
+              <p className="text-gray-700 leading-relaxed">
+                Rejoignez des groupes spécialisés selon vos intérêts : logistique, retail, e-commerce, supply chain et plus.
               </p>
             </Card>
 
-            {/* Feature 6 */}
-            <Card className="bg-white border-2 border-marron-fonce p-6 hover:shadow-xl transition">
-              <Award className="w-12 h-12 text-marron-fonce mb-4" />
-              <h3 className="text-2xl font-bold text-marron-fonce mb-2" style={{ fontFamily: 'Abril Fatface' }}>
-                Communautés Thématiques
+            <Card className="p-6 hover:shadow-xl transition-shadow border-[#F3E8EE]">
+              <div className="w-14 h-14 rounded-full bg-[#5C0029] flex items-center justify-center mb-4">
+                <Award className="w-7 h-7 text-[#F2ED6F]" />
+              </div>
+              <h3 className="text-xl font-bold text-[#5C0029] mb-3" style={{ fontFamily: "'Abril Fatface', serif" }}>
+                Expertise Reconnue
               </h3>
-              <p className="text-marron-fonce">
-                Rejoignez des groupes spécialisés par secteur, région ou domaine d'expertise pour des discussions ciblées.
+              <p className="text-gray-700 leading-relaxed">
+                Mettez en avant votre expertise et gagnez en visibilité auprès des acteurs clés de l'industrie.
               </p>
             </Card>
           </div>
@@ -164,64 +141,55 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-marron-fonce to-marron-fonce/80">
+      <section className="py-20 px-4 bg-gradient-to-r from-[#5C0029] to-[#5C0029]/90">
         <div className="container mx-auto text-center">
-          <h2 
-            className="text-5xl font-bold text-jaune-or mb-6"
-            style={{ fontFamily: 'Abril Fatface' }}
+          <h2
+            className="text-4xl md:text-5xl font-bold text-white mb-6"
+            style={{ fontFamily: "'Abril Fatface', serif" }}
           >
-            Prêt à rejoindre Claudine ?
+            Prêt à rejoindre la communauté ?
           </h2>
-          <p className="text-xl text-jaune-or mb-8">
+          <p className="text-xl text-[#F2ED6F] mb-10 max-w-2xl mx-auto">
             Inscrivez-vous gratuitement et commencez à développer votre réseau professionnel dès aujourd'hui.
           </p>
-          <Button 
-            className="bg-jaune-or text-marron-fonce hover:bg-white hover:text-marron-fonce text-lg px-8 py-6 font-bold"
-            onClick={() => window.location.href = getLoginUrl()}
+          <Button
+            onClick={() => {
+              window.location.href = getLoginUrl();
+            }}
+            size="lg"
+            className="bg-[#F2ED6F] hover:bg-[#F2ED6F]/90 text-[#5C0029] text-lg px-10 py-6 font-bold"
           >
-            S'inscrire maintenant
+            Créer mon compte gratuitement
+            <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-marron-fonce text-jaune-or py-8 border-t-4 border-jaune-or">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
+      {/* Stats Section */}
+      <section className="py-16 px-4 bg-white">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div>
-              <h4 className="font-bold mb-4" style={{ fontFamily: 'Abril Fatface' }}>Claudine</h4>
-              <p>Le réseau professionnel de la distribution</p>
+              <div className="text-5xl font-bold text-[#5C0029] mb-2" style={{ fontFamily: "'Abril Fatface', serif" }}>
+                10K+
+              </div>
+              <p className="text-lg text-gray-700">Professionnels Actifs</p>
             </div>
             <div>
-              <h4 className="font-bold mb-4">Liens rapides</h4>
-              <ul className="space-y-2">
-                <li><a href="/cgv" className="hover:text-white">CGV</a></li>
-                <li><a href="/cgu" className="hover:text-white">CGU</a></li>
-                <li><a href="/contact" className="hover:text-white">Contact</a></li>
-              </ul>
+              <div className="text-5xl font-bold text-[#5C0029] mb-2" style={{ fontFamily: "'Abril Fatface', serif" }}>
+                500+
+              </div>
+              <p className="text-lg text-gray-700">Entreprises Partenaires</p>
             </div>
             <div>
-              <h4 className="font-bold mb-4">Ressources</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="hover:text-white">Blog</a></li>
-                <li><a href="#" className="hover:text-white">Aide</a></li>
-                <li><a href="#" className="hover:text-white">Communauté</a></li>
-              </ul>
+              <div className="text-5xl font-bold text-[#5C0029] mb-2" style={{ fontFamily: "'Abril Fatface', serif" }}>
+                50+
+              </div>
+              <p className="text-lg text-gray-700">Groupes Thématiques</p>
             </div>
-            <div>
-              <h4 className="font-bold mb-4">Suivez-nous</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="hover:text-white">LinkedIn</a></li>
-                <li><a href="#" className="hover:text-white">Twitter</a></li>
-                <li><a href="#" className="hover:text-white">Facebook</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-jaune-or pt-8 text-center">
-            <p>&copy; 2026 Claudine. Tous droits réservés.</p>
           </div>
         </div>
-      </footer>
-    </div>
+      </section>
+    </Layout>
   );
 }

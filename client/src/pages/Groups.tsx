@@ -1,142 +1,208 @@
 import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Users, Plus, Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Search, Users, Plus, Lock, Globe } from "lucide-react";
+import Layout from "@/components/Layout";
+import { useLocation } from "wouter";
 
 export default function Groups() {
+  const { user, isAuthenticated } = useAuth();
+  const [, navigate] = useLocation();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  if (!isAuthenticated) {
+    navigate("/");
+    return null;
+  }
+
   const [groups] = useState([
     {
       id: 1,
-      name: "Logistique Urbaine",
+      name: "Logistique & Supply Chain",
+      description: "Échanges sur les meilleures pratiques en logistique et supply chain",
+      members: 2450,
+      posts: 1230,
+      isPrivate: false,
+      isMember: true,
       category: "Logistique",
-      members: 2847,
-      image: "🏙️",
-      description: "Discussions sur les défis de la logistique en zone urbaine",
-      joined: false
     },
     {
       id: 2,
-      name: "Supply Chain Innovation",
-      category: "Supply Chain",
-      members: 1923,
-      image: "🔧",
-      description: "Innovations et tendances dans la supply chain",
-      joined: true
+      name: "E-commerce & Distribution",
+      description: "Tout sur le e-commerce et la distribution en ligne",
+      members: 1820,
+      posts: 890,
+      isPrivate: false,
+      isMember: true,
+      category: "E-commerce",
     },
     {
       id: 3,
-      name: "E-commerce & Distribution",
-      category: "E-commerce",
-      members: 3456,
-      image: "📦",
-      description: "Stratégies de distribution pour l'e-commerce",
-      joined: false
+      name: "Innovation Retail",
+      description: "Les dernières innovations dans le secteur du retail",
+      members: 980,
+      posts: 456,
+      isPrivate: false,
+      isMember: false,
+      category: "Retail",
     },
     {
       id: 4,
-      name: "Développement Durable",
-      category: "Durabilité",
-      members: 1234,
-      image: "🌱",
-      description: "Distribution écologique et responsable",
-      joined: false
+      name: "Directeurs Logistique France",
+      description: "Réseau privé des directeurs logistique en France",
+      members: 340,
+      posts: 234,
+      isPrivate: true,
+      isMember: false,
+      category: "Logistique",
     },
     {
       id: 5,
-      name: "Entrepreneurs Distribution",
-      category: "Entrepreneuriat",
-      members: 892,
-      image: "🚀",
-      description: "Pour les entrepreneurs du secteur",
-      joined: true
+      name: "Optimisation des Flux",
+      description: "Techniques et outils pour optimiser les flux de distribution",
+      members: 1560,
+      posts: 678,
+      isPrivate: false,
+      isMember: false,
+      category: "Supply Chain",
     },
     {
       id: 6,
-      name: "Ressources Humaines",
-      category: "RH",
-      members: 1567,
-      image: "👥",
-      description: "Recrutement et gestion des talents",
-      joined: false
-    }
+      name: "Dernière Livraison Urbaine",
+      description: "Défis et solutions pour la livraison en zone urbaine",
+      members: 1120,
+      posts: 543,
+      isPrivate: false,
+      isMember: true,
+      category: "Logistique",
+    },
   ]);
 
+  const filteredGroups = groups.filter(
+    (group) =>
+      group.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      group.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      group.category.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
-    <div className="min-h-screen bg-beige-clair">
-      {/* Header */}
-      <div className="bg-marron-fonce text-jaune-or shadow-lg border-b-4 border-jaune-or">
-        <div className="container mx-auto px-4 py-6">
-          <h1 className="text-4xl font-bold mb-4" style={{ fontFamily: 'Abril Fatface' }}>
-            ❤️ Groupes Claudine
-          </h1>
-          <p className="text-jaune-or mb-4">Rejoignez des communautés thématiques et connectez-vous avec des experts</p>
-          
-          <div className="flex gap-4">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-3 text-marron-fonce" size={20} />
-              <input
-                type="text"
-                placeholder="Rechercher des groupes..."
-                className="w-full pl-10 pr-4 py-2 rounded-lg text-marron-fonce"
-              />
+    <Layout>
+      <div className="py-8 px-4">
+        <div className="container mx-auto max-w-6xl">
+          {/* Page Header */}
+          <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between">
+            <div>
+              <h1
+                className="text-4xl font-bold text-[#5C0029] mb-2"
+                style={{ fontFamily: "'Abril Fatface', serif" }}
+              >
+                Groupes & Communautés
+              </h1>
+              <p className="text-gray-700">
+                Rejoignez des groupes thématiques et échangez avec des experts
+              </p>
             </div>
-            <Button className="bg-jaune-or text-marron-fonce hover:bg-white hover:text-marron-fonce flex items-center gap-2">
-              <Plus size={20} />
+            <Button className="bg-[#5C0029] hover:bg-[#5C0029]/90 text-white mt-4 md:mt-0">
+              <Plus className="w-4 h-4 mr-2" />
               Créer un groupe
             </Button>
           </div>
-        </div>
-      </div>
 
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {groups.map((group) => (
-            <Card key={group.id} className="bg-white border-2 border-marron-fonce p-6 hover:shadow-xl transition">
-              <div className="text-5xl mb-4">{group.image}</div>
-              
-              <h3 className="text-2xl font-bold text-marron-fonce mb-2" style={{ fontFamily: 'Abril Fatface' }}>
-                {group.name}
-              </h3>
-              
-              <div className="flex items-center gap-2 mb-3">
-                <span className="bg-rose-pale text-marron-fonce px-3 py-1 rounded-full text-sm font-bold">
-                  {group.category}
-                </span>
-              </div>
-              
-              <p className="text-marron-fonce mb-4">{group.description}</p>
-              
-              <div className="flex items-center gap-2 text-marron-fonce/70 mb-4 pb-4 border-b-2 border-rose-pale">
-                <Users size={16} />
-                <span>{group.members.toLocaleString()} membres</span>
-              </div>
-              
-              <Button
-                className={`w-full ${
-                  group.joined
-                    ? "bg-marron-fonce text-jaune-or hover:bg-jaune-or hover:text-marron-fonce"
-                    : "bg-jaune-or text-marron-fonce hover:bg-marron-fonce hover:text-jaune-or"
-                }`}
+          {/* Search Bar */}
+          <Card className="p-4 mb-6 border-[#F3E8EE]">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Input
+                type="text"
+                placeholder="Rechercher un groupe par nom, description ou catégorie..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 border-[#F3E8EE] focus:border-[#5C0029]"
+              />
+            </div>
+          </Card>
+
+          {/* Groups Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredGroups.map((group) => (
+              <Card
+                key={group.id}
+                className="p-6 border-[#F3E8EE] hover:shadow-xl transition-shadow"
               >
-                {group.joined ? "Quitter" : "Rejoindre"}
-              </Button>
-            </Card>
-          ))}
-        </div>
+                {/* Group Header */}
+                <div className="mb-4">
+                  <div className="w-full h-32 rounded-lg bg-gradient-to-br from-[#5C0029] to-[#F2ED6F] mb-4 flex items-center justify-center">
+                    <Users className="w-16 h-16 text-white" />
+                  </div>
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="text-xl font-bold text-[#5C0029] flex-1">
+                      {group.name}
+                    </h3>
+                    {group.isPrivate ? (
+                      <Lock className="w-5 h-5 text-gray-500 flex-shrink-0 ml-2" />
+                    ) : (
+                      <Globe className="w-5 h-5 text-gray-500 flex-shrink-0 ml-2" />
+                    )}
+                  </div>
+                  <p className="text-sm text-gray-600 mb-3">{group.description}</p>
+                  <div className="inline-block px-3 py-1 bg-[#F3E8EE] text-[#5C0029] text-xs font-medium rounded-full">
+                    {group.category}
+                  </div>
+                </div>
 
-        {/* Create Group CTA */}
-        <Card className="bg-gradient-to-r from-marron-fonce to-marron-fonce/80 text-jaune-or p-8 mt-12 border-2 border-jaune-or">
-          <h2 className="text-3xl font-bold mb-4" style={{ fontFamily: 'Abril Fatface' }}>
-            Créez votre propre groupe
-          </h2>
-          <p className="mb-6">
-            Rassemblez les experts autour d'une thématique spécifique et créez une communauté engagée.
-          </p>
-          <Button className="bg-jaune-or text-marron-fonce hover:bg-white hover:text-marron-fonce font-bold">
-            Lancer un groupe
-          </Button>
-        </Card>
+                {/* Group Stats */}
+                <div className="flex items-center gap-4 mb-4 text-sm text-gray-600">
+                  <div className="flex items-center gap-1">
+                    <Users className="w-4 h-4 text-[#5C0029]" />
+                    <span>{group.members} membres</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <span>📝 {group.posts} posts</span>
+                  </div>
+                </div>
+
+                {/* Actions */}
+                {group.isMember ? (
+                  <Button
+                    variant="outline"
+                    className="w-full border-[#5C0029] text-[#5C0029] hover:bg-[#F3E8EE]"
+                  >
+                    Membre
+                  </Button>
+                ) : (
+                  <Button className="w-full bg-[#5C0029] hover:bg-[#5C0029]/90 text-white">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Rejoindre
+                  </Button>
+                )}
+              </Card>
+            ))}
+          </div>
+
+          {/* No Results */}
+          {filteredGroups.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-gray-600 text-lg">
+                Aucun groupe trouvé pour "{searchQuery}"
+              </p>
+            </div>
+          )}
+
+          {/* Load More */}
+          {filteredGroups.length > 0 && (
+            <div className="mt-8 text-center">
+              <Button
+                variant="outline"
+                className="border-[#5C0029] text-[#5C0029] hover:bg-[#5C0029] hover:text-white"
+              >
+                Charger plus de groupes
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 }

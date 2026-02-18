@@ -6,7 +6,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
-import ProfileEdit from "./pages/ProfileEdit";
+import Profile from "./pages/Profile";
 import Discover from "./pages/Discover";
 import Messages from "./pages/Messages";
 import Contact from "./pages/Contact";
@@ -20,7 +20,7 @@ function Router() {
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/dashboard"} component={Dashboard} />
-      <Route path={"/profile"} component={ProfileEdit} />
+      <Route path={"/profile"} component={Profile} />
       <Route path={"/discover"} component={Discover} />
       <Route path={"/messages"} component={Messages} />
       <Route path={"/contact"} component={Contact} />

@@ -1,11 +1,21 @@
 import { useState } from "react";
-import { useAuth } from "@/_core/hooks/useAuth";
+import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Heart, MessageCircle, Share2, Search } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import { Heart, MessageCircle, Share2, Send, Image as ImageIcon } from "lucide-react";
+import Layout from "@/components/Layout";
+import { useLocation } from "wouter";
 
 export default function Feed() {
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
+  const [, navigate] = useLocation();
+
+  if (!isAuthenticated) {
+    navigate("/");
+    return null;
+  }
+
   const [posts, setPosts] = useState([
     {
       id: 1,
@@ -79,171 +89,141 @@ export default function Feed() {
   };
 
   return (
-    <div className="min-h-screen bg-beige-clair">
-      {/* Header */}
-      <div className="bg-marron-fonce text-jaune-or shadow-lg border-b-4 border-jaune-or sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex justify-between items-center mb-4">
-            <h1 className="text-3xl font-bold" style={{ fontFamily: 'Abril Fatface' }}>
-              ❤️ Claudine
+    <Layout>
+      <div className="py-8 px-4">
+        <div className="container mx-auto max-w-4xl">
+          {/* Page Title */}
+          <div className="mb-8">
+            <h1
+              className="text-4xl font-bold text-[#5C0029] mb-2"
+              style={{ fontFamily: "'Abril Fatface', serif" }}
+            >
+              Fil d'Actualités
             </h1>
+            <p className="text-gray-700">
+              Partagez vos idées et restez informé des dernières actualités de la distribution
+            </p>
+          </div>
+
+          {/* Create Post Card */}
+          <Card className="p-6 mb-6 border-[#F3E8EE]">
             <div className="flex gap-4">
-              <a href="/dashboard" className="hover:text-white transition">Dashboard</a>
-              <a href="/groups" className="hover:text-white transition">Groupes</a>
-              <a href="/messages" className="hover:text-white transition">Messages</a>
-            </div>
-          </div>
-          
-          {/* Search */}
-          <div className="relative">
-            <Search className="absolute left-3 top-3 text-marron-fonce" size={20} />
-            <input
-              type="text"
-              placeholder="Rechercher des posts, des personnes..."
-              className="w-full pl-10 pr-4 py-2 rounded-lg text-marron-fonce"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Feed */}
-          <div className="lg:col-span-2">
-            {/* Create Post */}
-            <Card className="bg-white border-2 border-marron-fonce p-6 mb-8">
-              <div className="flex gap-4 mb-4">
-                <div className="w-12 h-12 rounded-full bg-marron-fonce text-jaune-or flex items-center justify-center font-bold">
-                  {user?.name?.substring(0, 2).toUpperCase() || "VD"}
-                </div>
-                <div className="flex-1">
-                  <textarea
-                    value={newPost}
-                    onChange={(e) => setNewPost(e.target.value)}
-                    placeholder="Partagez vos insights sur la distribution..."
-                    className="w-full p-3 border-2 border-rose-pale rounded-lg focus:outline-none focus:border-marron-fonce resize-none"
-                    rows={3}
-                  />
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#5C0029] to-[#F2ED6F] flex items-center justify-center text-white font-bold flex-shrink-0">
+                {user?.name?.substring(0, 2).toUpperCase() || "VD"}
+              </div>
+              <div className="flex-1">
+                <Textarea
+                  placeholder="Partagez vos idées avec la communauté..."
+                  value={newPost}
+                  onChange={(e) => setNewPost(e.target.value)}
+                  className="mb-3 min-h-[100px] border-[#F3E8EE] focus:border-[#5C0029]"
+                />
+                <div className="flex justify-between items-center">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-[#5C0029] text-[#5C0029] hover:bg-[#F3E8EE]"
+                  >
+                    <ImageIcon className="w-4 h-4 mr-2" />
+                    Ajouter une image
+                  </Button>
+                  <Button
+                    onClick={handlePostSubmit}
+                    disabled={!newPost.trim()}
+                    className="bg-[#5C0029] hover:bg-[#5C0029]/90 text-white"
+                  >
+                    <Send className="w-4 h-4 mr-2" />
+                    Publier
+                  </Button>
                 </div>
               </div>
-              <div className="flex justify-end gap-2">
-                <Button variant="outline" className="border-marron-fonce text-marron-fonce">
-                  Ajouter une image
-                </Button>
-                <Button
-                  className="bg-marron-fonce text-jaune-or hover:bg-jaune-or hover:text-marron-fonce"
-                  onClick={handlePostSubmit}
-                  disabled={!newPost.trim()}
-                >
-                  Publier
-                </Button>
-              </div>
-            </Card>
-
-            {/* Posts Feed */}
-            <div className="space-y-6">
-              {posts.map((post) => (
-                <Card key={post.id} className="bg-white border-2 border-marron-fonce p-6 hover:shadow-lg transition">
-                  {/* Post Header */}
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-full bg-marron-fonce text-jaune-or flex items-center justify-center font-bold">
-                      {post.avatar}
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-bold text-marron-fonce">{post.author}</h3>
-                      <p className="text-sm text-marron-fonce/70">{post.title}</p>
-                      <p className="text-xs text-marron-fonce/50">{post.timestamp}</p>
-                    </div>
-                  </div>
-
-                  {/* Post Content */}
-                  <p className="text-marron-fonce mb-4">{post.content}</p>
-
-                  {post.image && (
-                    <img src={post.image} alt="Post" className="w-full rounded-lg mb-4" />
-                  )}
-
-                  {/* Post Stats */}
-                  <div className="flex gap-4 text-sm text-marron-fonce/70 mb-4 pb-4 border-b-2 border-rose-pale">
-                    <span>{post.likes} likes</span>
-                    <span>{post.comments} commentaires</span>
-                    <span>{post.shares} partages</span>
-                  </div>
-
-                  {/* Post Actions */}
-                  <div className="flex gap-4">
-                    <button
-                      onClick={() => toggleLike(post.id)}
-                      className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg transition ${
-                        post.liked
-                          ? "bg-marron-fonce text-jaune-or"
-                          : "hover:bg-rose-pale text-marron-fonce"
-                      }`}
-                    >
-                      <Heart size={20} fill={post.liked ? "currentColor" : "none"} />
-                      <span>J'aime</span>
-                    </button>
-                    <button className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg hover:bg-rose-pale text-marron-fonce transition">
-                      <MessageCircle size={20} />
-                      <span>Commenter</span>
-                    </button>
-                    <button className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg hover:bg-rose-pale text-marron-fonce transition">
-                      <Share2 size={20} />
-                      <span>Partager</span>
-                    </button>
-                  </div>
-                </Card>
-              ))}
             </div>
-          </div>
+          </Card>
 
-          {/* Sidebar */}
+          {/* Posts Feed */}
           <div className="space-y-6">
-            {/* Trending */}
-            <Card className="bg-white border-2 border-marron-fonce p-6">
-              <h3 className="text-xl font-bold text-marron-fonce mb-4" style={{ fontFamily: 'Abril Fatface' }}>
-                Tendances
-              </h3>
-              <div className="space-y-3">
-                <div className="hover:bg-rose-pale p-2 rounded cursor-pointer transition">
-                  <p className="font-bold text-marron-fonce">#LogistiqueUrbaine</p>
-                  <p className="text-sm text-marron-fonce/70">2.5K posts</p>
-                </div>
-                <div className="hover:bg-rose-pale p-2 rounded cursor-pointer transition">
-                  <p className="font-bold text-marron-fonce">#SupplyChain2026</p>
-                  <p className="text-sm text-marron-fonce/70">1.8K posts</p>
-                </div>
-                <div className="hover:bg-rose-pale p-2 rounded cursor-pointer transition">
-                  <p className="font-bold text-marron-fonce">#Automatisation</p>
-                  <p className="text-sm text-marron-fonce/70">1.2K posts</p>
-                </div>
-              </div>
-            </Card>
-
-            {/* Suggested Users */}
-            <Card className="bg-white border-2 border-marron-fonce p-6">
-              <h3 className="text-xl font-bold text-marron-fonce mb-4" style={{ fontFamily: 'Abril Fatface' }}>
-                À suivre
-              </h3>
-              <div className="space-y-3">
-                {["Pierre Leclerc", "Isabelle Moreau", "Thomas Renaud"].map((name) => (
-                  <div key={name} className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-marron-fonce text-jaune-or flex items-center justify-center text-sm font-bold">
-                        {name.substring(0, 1)}
-                      </div>
-                      <span className="text-sm font-bold text-marron-fonce">{name}</span>
-                    </div>
-                    <Button size="sm" className="bg-marron-fonce text-jaune-or hover:bg-jaune-or hover:text-marron-fonce">
-                      Suivre
-                    </Button>
+            {posts.map((post) => (
+              <Card key={post.id} className="p-6 border-[#F3E8EE] hover:shadow-lg transition-shadow">
+                {/* Post Header */}
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#5C0029] to-[#F2ED6F] flex items-center justify-center text-white font-bold flex-shrink-0">
+                    {post.avatar}
                   </div>
-                ))}
-              </div>
-            </Card>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-[#5C0029] text-lg">{post.author}</h3>
+                    <p className="text-sm text-gray-600">{post.title}</p>
+                    <p className="text-xs text-gray-500">{post.timestamp}</p>
+                  </div>
+                </div>
+
+                {/* Post Content */}
+                <div className="mb-4">
+                  <p className="text-gray-800 leading-relaxed">{post.content}</p>
+                  {post.image && (
+                    <img
+                      src={post.image}
+                      alt="Post"
+                      className="mt-4 rounded-lg w-full object-cover max-h-96"
+                    />
+                  )}
+                </div>
+
+                {/* Post Stats */}
+                <div className="flex items-center gap-6 py-3 border-t border-b border-gray-200 text-sm text-gray-600 mb-3">
+                  <span>{post.likes} j'aime</span>
+                  <span>{post.comments} commentaires</span>
+                  <span>{post.shares} partages</span>
+                </div>
+
+                {/* Post Actions */}
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => toggleLike(post.id)}
+                    className={`flex-1 ${
+                      post.liked
+                        ? "text-red-500 hover:text-red-600"
+                        : "text-gray-700 hover:text-[#5C0029]"
+                    }`}
+                  >
+                    <Heart
+                      className={`w-5 h-5 mr-2 ${post.liked ? "fill-current" : ""}`}
+                    />
+                    J'aime
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="flex-1 text-gray-700 hover:text-[#5C0029]"
+                  >
+                    <MessageCircle className="w-5 h-5 mr-2" />
+                    Commenter
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="flex-1 text-gray-700 hover:text-[#5C0029]"
+                  >
+                    <Share2 className="w-5 h-5 mr-2" />
+                    Partager
+                  </Button>
+                </div>
+              </Card>
+            ))}
+          </div>
+
+          {/* Load More */}
+          <div className="mt-8 text-center">
+            <Button
+              variant="outline"
+              className="border-[#5C0029] text-[#5C0029] hover:bg-[#5C0029] hover:text-white"
+            >
+              Charger plus de publications
+            </Button>
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }
