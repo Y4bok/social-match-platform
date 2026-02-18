@@ -56,3 +56,16 @@
 - [ ] Connecter système de followers au backend
 - [ ] Connecter messagerie au backend
 - [ ] Connecter groupes au backend
+
+
+## ✅ Refonte Page d'Accueil (COMPLÉTÉ)
+- [x] Uploader les images des maquettes vers S3
+- [x] Section Hero avec image téléphone
+- [x] Section "Inscrivez-vous gratuitement" (fond bordeaux)
+- [x] Section "Comment ça marche" avec image ronde
+- [x] Section "Mise en relation" (fond rose saumon)
+- [x] Section "Rencontre" avec image Leo DiCaprio
+- [x] Section "Vous allez adorer échanger"
+- [x] Section "Pourquoi ça marche" avec 3 cercles
+- [x] Footer avec email, Instagram, réseaux sociaux
+- [x] Ajuster couleurs et typographies selon maquettes
