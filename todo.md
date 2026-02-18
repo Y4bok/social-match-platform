@@ -1,4 +1,4 @@
-# TODO - Reconstruction Complète Claudine
+# TODO - Claudine
 
 ## ✅ Authentification (COMPLÉTÉ)
 - [x] Système d'inscription fonctionnel (via Manus OAuth)
@@ -40,16 +40,19 @@
 - [x] Layout cohérent sur toutes les pages
 - [x] Footer avec liens légaux
 
+## ✅ Système d'Onboarding (COMPLÉTÉ)
+- [x] Créer procédure tRPC pour compléter le profil
+- [x] Créer procédure tRPC pour mettre à jour le profil
+- [x] Créer page d'onboarding avec formulaire complet
+- [x] Ajouter champs professionnels (poste, entreprise, localisation)
+- [x] Ajouter validation des champs
+- [x] Implémenter redirection automatique après première connexion
+- [x] Vérifier que le profil est complet avant d'accéder au site
+- [x] Composant ProtectedRoute pour gérer l'accès
+
 ## 🔄 Fonctionnalités à Connecter (Backend)
 - [ ] Connecter création de posts au backend
 - [ ] Connecter likes et commentaires au backend
 - [ ] Connecter système de followers au backend
 - [ ] Connecter messagerie au backend
 - [ ] Connecter groupes au backend
-
-## 📝 Notes
-- Toutes les pages sont maintenant fonctionnelles avec des données mockées
-- Le design Claudine est appliqué partout
-- La navigation fonctionne correctement
-- L'authentification via Manus OAuth fonctionne
-- Prêt pour le déploiement Azure

@@ -128,6 +128,8 @@ export const appRouter = router({
       .input(z.object({
         bio: z.string().optional(),
         profilePhotoUrl: z.string().optional(),
+        jobTitle: z.string().optional(),
+        company: z.string().optional(),
         age: z.number().optional(),
         gender: z.string().optional(),
         location: z.string().optional(),
@@ -135,6 +137,24 @@ export const appRouter = router({
       }))
       .mutation(async ({ ctx, input }) => {
         await createOrUpdateUserProfile(ctx.user.id, input);
+        return { success: true };
+      }),
+
+    completeProfile: protectedProcedure
+      .input(z.object({
+        bio: z.string().optional(),
+        profilePhotoUrl: z.string().optional(),
+        jobTitle: z.string().optional(),
+        company: z.string().optional(),
+        location: z.string().optional(),
+        age: z.number().optional(),
+        gender: z.string().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        await createOrUpdateUserProfile(ctx.user.id, {
+          ...input,
+          isProfileComplete: true,
+        });
         return { success: true };
       }),
   }),

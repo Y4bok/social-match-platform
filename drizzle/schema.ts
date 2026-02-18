@@ -34,11 +34,16 @@ export const userProfiles = mysqlTable("user_profiles", {
   userId: int("userId").notNull().unique(),
   bio: text("bio"),
   profilePhotoUrl: text("profilePhotoUrl"),
+  // Professional information
+  jobTitle: varchar("jobTitle", { length: 255 }),
+  company: varchar("company", { length: 255 }),
+  location: varchar("location", { length: 255 }),
+  // Optional fields
   age: int("age"),
   gender: varchar("gender", { length: 50 }),
-  location: varchar("location", { length: 255 }),
   preferences: json("preferences"), // JSON object for matching preferences
   isVerified: boolean("isVerified").default(false),
+  isProfileComplete: boolean("isProfileComplete").default(false),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

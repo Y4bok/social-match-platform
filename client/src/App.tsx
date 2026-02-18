@@ -14,6 +14,7 @@ import CGV from "./pages/CGV";
 import CGU from "./pages/CGU";
 import Feed from "./pages/Feed";
 import Groups from "./pages/Groups";
+import Onboarding from "./pages/Onboarding";
 
 function Router() {
   return (
@@ -28,6 +29,7 @@ function Router() {
       <Route path={"/cgu"} component={CGU} />
       <Route path={"/feed"} component={Feed} />
       <Route path={"/groups"} component={Groups} />
+      <Route path={"/onboarding"} component={Onboarding} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

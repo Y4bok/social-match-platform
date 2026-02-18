@@ -22,6 +22,27 @@
       "when": 1771290880890,
       "tag": "0002_thin_starhawk",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1771422372946,
+      "tag": "0003_glossy_winter_soldier",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1771422783654,
+      "tag": "0004_calm_emma_frost",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1771426157322,
+      "tag": "0005_legal_violations",
+      "breakpoints": true
     }
   ]
 }
